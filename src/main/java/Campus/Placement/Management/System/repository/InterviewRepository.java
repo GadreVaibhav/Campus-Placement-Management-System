@@ -1,11 +1,11 @@
-package Campus.Placement.Management.System;
+package Campus.Placement.Management.System.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import java.util.List;
+
+import Campus.Placement.Management.System.model.Interview;
 
 @Repository
 public interface InterviewRepository extends JpaRepository<Interview, Long> {
-    // Custom finder method to see all interviews scheduled for a specific student
-    List<Interview> findByStudentId(Long studentId);
+    Interview findByStudentApplicationId(Long applicationId);
 }

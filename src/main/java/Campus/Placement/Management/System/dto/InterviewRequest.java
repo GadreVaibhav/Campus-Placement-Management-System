@@ -1,4 +1,4 @@
-package Campus.Placement.Management.System;
+package Campus.Placement.Management.System.dto;
 
 public class InterviewRequest {
     private Long studentId;

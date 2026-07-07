@@ -1,4 +1,4 @@
-package Campus.Placement.Management.System;
+package Campus.Placement.Management.System.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,18 +20,18 @@ public class Company {
     private String companyName;
 
     @Column(name = "min_cgpa_required")
-    private double minCgpaRequired;
+    private Double minCgpaRequired;
 
     @Column(name = "required_skill")
     private String requiredSkill;
 
     @Column(name = "package_lpa")
-    private double packageLpa;
+    private Double packageLpa;
 
     // Constructor required by Spring
     public Company() {}
 
-    public Company(String companyName, double minCgpaRequired, String requiredSkill, double packageLpa) {
+    public Company(String companyName, Double minCgpaRequired, String requiredSkill, Double packageLpa) {
         this.companyName = companyName;
         this.minCgpaRequired = minCgpaRequired;
         this.requiredSkill = requiredSkill;
@@ -45,12 +45,16 @@ public class Company {
     public String getCompanyName() { return companyName; }
     public void setCompanyName(String companyName) { this.companyName = companyName; }
 
-    public double getMinCgpaRequired() { return minCgpaRequired; }
-    public void setMinCgpaRequired(double minCgpaRequired) { this.minCgpaRequired = minCgpaRequired; }
+    public Double getMinCgpaRequired() { return minCgpaRequired; }
+   public void setMinCgpaRequired(Double minCgpaRequired) { // Use Double
+        this.minCgpaRequired = minCgpaRequired; 
+    }
 
     public String getRequiredSkill() { return requiredSkill; }
     public void setRequiredSkill(String requiredSkill) { this.requiredSkill = requiredSkill; }
 
-    public double getPackageLpa() { return packageLpa; }
-    public void setPackageLpa(double packageLpa) { this.packageLpa = packageLpa; }
+    public Double getPackageLpa() { return packageLpa; }
+   public void setPackageLpa(Double packageLpa) { // Use Double
+        this.packageLpa = packageLpa; 
+    }
 }
