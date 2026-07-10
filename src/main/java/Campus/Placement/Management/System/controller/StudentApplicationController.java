@@ -1,9 +1,9 @@
 package Campus.Placement.Management.System.controller;
 
 import Campus.Placement.Management.System.dto.InterviewRequest; // If you use this
-import Campus.Placement.Management.System.model.Student;
-import Campus.Placement.Management.System.model.PlacementDrive;
-import Campus.Placement.Management.System.model.StudentApplication;
+import Campus.Placement.Management.System.entity.PlacementDrive;
+import Campus.Placement.Management.System.entity.Student;
+import Campus.Placement.Management.System.entity.StudentApplication;
 import Campus.Placement.Management.System.repository.PlacementDriveRepository;
 import Campus.Placement.Management.System.repository.StudentApplicationRepository;
 import Campus.Placement.Management.System.repository.StudentRepository; // Fixed import

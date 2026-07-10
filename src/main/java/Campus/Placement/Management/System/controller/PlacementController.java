@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import Campus.Placement.Management.System.model.Company;
-import Campus.Placement.Management.System.model.Student;
+import Campus.Placement.Management.System.entity.Company;
+import Campus.Placement.Management.System.entity.Student;
 import Campus.Placement.Management.System.repository.CompanyRepository;
 import Campus.Placement.Management.System.repository.StudentRepository;
 

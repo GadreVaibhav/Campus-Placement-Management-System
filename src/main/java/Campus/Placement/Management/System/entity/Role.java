@@ -1,4 +1,4 @@
-package Campus.Placement.Management.System.model;
+package Campus.Placement.Management.System.entity;
 
 public enum Role {
     ADMIN,

@@ -1,4 +1,4 @@
-package Campus.Placement.Management.System.model;
+package Campus.Placement.Management.System.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;

@@ -2,7 +2,7 @@ package Campus.Placement.Management.System.controller;
 
 import Campus.Placement.Management.System.dto.AuthenticationRequest; // Updated import
 import Campus.Placement.Management.System.dto.RegisterRequest;       // Updated import
-import Campus.Placement.Management.System.model.User;
+import Campus.Placement.Management.System.entity.User;
 import Campus.Placement.Management.System.repository.UserRepository;
 import Campus.Placement.Management.System.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;

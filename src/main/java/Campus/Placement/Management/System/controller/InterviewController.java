@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import Campus.Placement.Management.System.model.Interview;
-import Campus.Placement.Management.System.model.StudentApplication;
+import Campus.Placement.Management.System.entity.Interview;
+import Campus.Placement.Management.System.entity.StudentApplication;
 import Campus.Placement.Management.System.repository.InterviewRepository;
 import Campus.Placement.Management.System.repository.StudentApplicationRepository;
 

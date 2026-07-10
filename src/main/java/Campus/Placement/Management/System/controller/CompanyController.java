@@ -1,6 +1,6 @@
 package Campus.Placement.Management.System.controller;
 
-import Campus.Placement.Management.System.model.Company;
+import Campus.Placement.Management.System.entity.Company;
 import Campus.Placement.Management.System.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,6 @@
 package Campus.Placement.Management.System.controller;
 
-import Campus.Placement.Management.System.model.PlacementDrive;
+import Campus.Placement.Management.System.entity.PlacementDrive;
 import Campus.Placement.Management.System.repository.PlacementDriveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
