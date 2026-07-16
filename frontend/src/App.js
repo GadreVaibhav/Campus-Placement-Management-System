@@ -3,14 +3,14 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
-import Dashboard from "./pages/Dashboard";
-import StudentProfile from "./pages/StudentProfile";
+import Profile from "./pages/Profile";
+import StudentDashboard from "./pages/StudentDashboard";
 import UploadResume from "./pages/UploadResume";
 import PlacementDrives from "./pages/PlacementDrives";
 import Applications from "./pages/Applications";
-import Interviews from "./pages/Interviews";
+
 import EditProfile from "./pages/EditProfile";
-import InterviewSchedule from "./pages/InterviewSchedule";
+
 
 import RecruiterDashboard from "./pages/RecruiterDashboard";
 import RecruiterApplications from "./pages/RecruiterApplications";
@@ -32,6 +32,8 @@ import InterviewManagement from "./pages/InterviewManagement";
 import EditInterview from "./pages/EditInterview";
 import AdminRecruiters from "./pages/AdminRecruiters";
 import AdminJobs from "./pages/AdminJobs";
+
+import StudentLayout from "./components/student/StudentLayout";
 function App() {
 
   return (
@@ -47,42 +49,60 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         {/* Student Routes */}
-
         <Route
-          element={
-            <ProtectedRoute allowedRole="STUDENT">
-              <Layout />
-            </ProtectedRoute>
-          }
+            element={
+                <ProtectedRoute allowedRole="STUDENT">
+                    <StudentLayout />
+                </ProtectedRoute>
+            }
         >
 
-          <Route path="/student" element={<Dashboard />} />
+            <Route
+                path="/student"
+                element={<Navigate to="/student/dashboard" replace />}
+            />
 
-          <Route path="/profile" element={<StudentProfile />} />
+            <Route
+                path="/student/dashboard"
+                element={<StudentDashboard />}
+            />
 
-          <Route path="/resume" element={<UploadResume />} />
+            <Route
+                path="/student/profile"
+                element={<Profile />}
+            />
 
-          <Route path="/drives" element={<PlacementDrives />} />
+            <Route
+                path="/student/jobs"
+                element={<PlacementDrives />}
+            />
 
-          <Route path="/applications" element={<Applications />} />
+            <Route
+                path="/student/applications"
+                element={<Applications />}
+            />
 
-          <Route path="/interviews" element={<Interviews />} />
+            <Route
+                path="/student/documents"
+                element={<UploadResume />}
+            />
 
-          <Route path="/interview" element={<InterviewSchedule />} />
-
-          <Route path="/edit-profile" element={<EditProfile />} />
+            <Route
+                path="/student/profile/edit"
+                element={<EditProfile />}
+            />
 
         </Route>
 
         {/* Recruiter */}
 
-        <Route
+         <Route
           element={
             <ProtectedRoute allowedRole="RECRUITER">
               <Layout />
             </ProtectedRoute>
           }
-        >
+         >
 
           <Route path="/recruiter" element={<RecruiterDashboard />} />
 
@@ -100,7 +120,7 @@ function App() {
 
         {/* Admin */}
 
-          <Route
+        <Route
             element={
               <ProtectedRoute allowedRole="ADMIN">
                 <AdminLayout />

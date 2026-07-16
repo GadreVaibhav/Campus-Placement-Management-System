@@ -80,8 +80,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder
                         .getContext()
                         .setAuthentication(authToken);
+                        log.info("Authorities: {}", authToken.getAuthorities());
+
+log.info("Authentication: {}", SecurityContextHolder.getContext().getAuthentication());
 
                 log.info("Authentication successful for {}", email);
+log.info("Authorities : {}", userDetails.getAuthorities());
 
             } else {
 

@@ -24,20 +24,25 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+    
     // =====================================
     // Logged-in Student
     // =====================================
 
-    @GetMapping("/me")
-    public ResponseEntity<StudentResponseDTO> getLoggedInStudent(
-            Authentication authentication) {
+  @GetMapping("/me")
+public ResponseEntity<StudentResponseDTO> getLoggedInStudent(
+        Authentication authentication) {
 
-        String email = authentication.getName();
+    System.out.println("===== CONTROLLER HIT =====");
+    System.out.println(authentication);
+    System.out.println(authentication.getAuthorities());
 
-        return ResponseEntity.ok(
-                studentService.getLoggedInStudent(email)
-        );
-    }
+    String email = authentication.getName();
+
+    return ResponseEntity.ok(
+            studentService.getLoggedInStudent(email)
+    );
+}
 
     // =====================================
     // Get Student By ID

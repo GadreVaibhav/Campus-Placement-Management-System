@@ -74,11 +74,8 @@ public class SecurityConfig {
                         // STUDENT
                         // ===========================
 
-                        .requestMatchers(
-                                "/api/students/me",
-                                "/api/students/profile/**")
-                        .hasRole("STUDENT")
-
+                       .requestMatchers("/api/students/me")
+.permitAll()
                         // ===========================
                         // RECRUITER
                         // ===========================
