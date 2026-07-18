@@ -11,19 +11,19 @@ public class InterviewMapper {
 
         dto.setId(interview.getId());
 
-       dto.setApplicationId(
-        interview.getStudentApplication().getId());
+         dto.setApplicationId(
+        interview.getApplication().getId());
 
-dto.setCompanyName(
-        interview.getStudentApplication()
-                .getPlacementDrive()
-                .getCompany()
-                .getCompanyName());
+        dto.setCompanyName(
+                interview.getApplication()
+                        .getJob()
+                        .getCompany()
+                        .getCompanyName());
 
-dto.setJobRole(
-        interview.getStudentApplication()
-                .getPlacementDrive()
-                .getJobRole());
+        dto.setJobRole(
+                interview.getApplication()
+                        .getJob()
+                        .getJobTitle());
 
         dto.setInterviewTime(
                 interview.getInterviewTime());

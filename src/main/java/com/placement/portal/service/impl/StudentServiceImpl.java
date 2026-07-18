@@ -25,6 +25,17 @@ import com.placement.portal.repository.UserRepository;
 import com.placement.portal.service.StudentService;
 import org.springframework.data.jpa.domain.Specification;
 import com.placement.portal.specification.StudentSpecification;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.web.multipart.MultipartFile;
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -33,6 +44,8 @@ public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
     private final UserRepository userRepository;
+    @Value("${file.upload-dir}")
+private String uploadDir;
 
     public StudentServiceImpl(StudentRepository studentRepository,
                               UserRepository userRepository) {
@@ -62,49 +75,37 @@ public class StudentServiceImpl implements StudentService {
     // Update Profile
     // ==========================================
 
-    @Override
-    public StudentResponseDTO updateProfile(Long userId,
-                                            StudentRequestDTO requestDTO) {
+   @Override
+public StudentResponseDTO updateLoggedInStudent(
+        String email,
+        StudentRequestDTO requestDTO) {
 
-        logger.info("Updating profile for User ID: {}", userId);
+    logger.info("Updating profile for {}", email);
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> {
+    Student student = studentRepository.findByUserEmail(email)
+            .orElseThrow(() ->
+                    new StudentNotFoundException(
+                            "Student not found with email : " + email));
 
-                    logger.error("User not found with ID: {}", userId);
+    student.setName(requestDTO.getName());
+    student.setEmail(requestDTO.getEmail());
+    student.setPhone(requestDTO.getPhone());
+    student.setBranch(requestDTO.getBranch());
+    student.setGraduationYear(requestDTO.getGraduationYear());
+    student.setPrimaryLanguage(requestDTO.getPrimaryLanguage());
+    student.setCgpa(requestDTO.getCgpa());
+    student.setSkill(requestDTO.getSkill());
+    student.setTenthPercentage(requestDTO.getTenthPercentage());
+    student.setTwelfthPercentage(requestDTO.getTwelfthPercentage());
+    student.setCurrentBacklogs(requestDTO.getCurrentBacklogs());
+    student.setTotalBacklogs(requestDTO.getTotalBacklogs());
 
-                    return new UserNotFoundException(
-                            "User not found with ID: " + userId);
-                });
+    Student updatedStudent = studentRepository.save(student);
 
-        Student student = studentRepository.findByUser(user)
-                .orElseThrow(() -> {
+    logger.info("Profile updated successfully");
 
-                    logger.error("Student profile not found for User ID: {}", userId);
-
-                    return new StudentNotFoundException(
-                            "Student profile not found for User ID: " + userId);
-                });
-
-        student.setName(requestDTO.getName());
-        student.setEmail(requestDTO.getEmail());
-        student.setPhone(requestDTO.getPhone());
-        student.setBranch(requestDTO.getBranch());
-        student.setGraduationYear(requestDTO.getGraduationYear());
-        student.setPrimaryLanguage(requestDTO.getPrimaryLanguage());
-        student.setCgpa(requestDTO.getCgpa());
-        student.setSkill(requestDTO.getSkill());
-        student.setTenthPercentage(requestDTO.getTenthPercentage());
-        student.setTwelfthPercentage(requestDTO.getTwelfthPercentage());
-        student.setCurrentBacklogs(requestDTO.getCurrentBacklogs());
-        student.setTotalBacklogs(requestDTO.getTotalBacklogs());
-
-        Student updatedStudent = studentRepository.save(student);
-
-        logger.info("Profile updated successfully for User ID: {}", userId);
-
-        return StudentMapper.toResponseDTO(updatedStudent);
-    }
+    return StudentMapper.toResponseDTO(updatedStudent);
+}
 
     // ==========================================
     // Get Student By ID
@@ -133,25 +134,22 @@ public class StudentServiceImpl implements StudentService {
     // Logged In Student
     // ==========================================
 
-    @Override
-    public StudentResponseDTO getLoggedInStudent(String email) {
+@Override
+public StudentResponseDTO getLoggedInStudent(String email) {
 
-        logger.info("Fetching logged in student: {}", email);
+    System.out.println("========== SERVICE ==========");
+    System.out.println(email);
 
-        Student student = studentRepository.findByUserEmail(email)
-                .orElseThrow(() -> {
+    Student student = studentRepository.findByUserEmail(email)
+            .orElseThrow(() ->
+                    new StudentNotFoundException(
+                            "Student not found with email: " + email));
 
-                    logger.error("Student not found for email: {}", email);
+    System.out.println(student.getStudentId());
+    System.out.println(student.getName());
 
-                    return new StudentNotFoundException(
-                            "Student not found with email: " + email);
-                });
-
-        logger.info("Logged in student fetched successfully.");
-
-        return StudentMapper.toResponseDTO(student);
-    }
-
+    return StudentMapper.toResponseDTO(student);
+}
     // ==========================================
     // Get All Students
     // ==========================================
@@ -302,4 +300,115 @@ public StudentResponseDTO updateStudent(
 
     return StudentMapper.toResponseDTO(updated);
 }
+@Override
+public StudentResponseDTO uploadResume(String email, MultipartFile file) {
+
+    try {
+
+        Student student = studentRepository.findByUserEmail(email)
+                .orElseThrow(() ->
+                        new StudentNotFoundException(
+                                "Student not found"));
+
+        Path uploadPath = Paths.get(uploadDir);
+
+        if (!Files.exists(uploadPath)) {
+
+            Files.createDirectories(uploadPath);
+
+        }
+
+        String fileName =
+                student.getStudentId() + "_" + file.getOriginalFilename();
+
+        Path filePath = uploadPath.resolve(fileName);
+
+        Files.copy(
+                file.getInputStream(),
+                filePath,
+                StandardCopyOption.REPLACE_EXISTING);
+
+        student.setResumeUrl(fileName);
+
+        studentRepository.save(student);
+
+        return StudentMapper.toResponseDTO(student);
+
+    }
+
+    catch (IOException e) {
+
+        throw new RuntimeException("Could not upload resume.");
+
+    }
+
+}
+@Override
+public Resource downloadResume(String email) {
+
+    try {
+
+        Student student = studentRepository.findByUserEmail(email)
+                .orElseThrow(() ->
+                        new StudentNotFoundException(
+                                "Student not found"));
+
+        Path filePath =
+                Paths.get(uploadDir)
+                        .resolve(student.getResumeUrl());
+
+        Resource resource =
+                new UrlResource(filePath.toUri());
+
+        if (resource.exists()) {
+
+            return resource;
+
+        }
+
+        throw new RuntimeException("Resume not found.");
+
+    }
+
+    catch (Exception e) {
+
+        throw new RuntimeException("Unable to download resume.");
+
+    }
+
+}
+@Override
+public void deleteResume(String email) {
+
+    try {
+
+        Student student = studentRepository.findByUserEmail(email)
+                .orElseThrow(() ->
+                        new StudentNotFoundException(
+                                "Student not found"));
+
+        if (student.getResumeUrl() != null) {
+
+            Path filePath =
+                    Paths.get(uploadDir)
+                            .resolve(student.getResumeUrl());
+
+            Files.deleteIfExists(filePath);
+
+            student.setResumeUrl(null);
+
+            studentRepository.save(student);
+
+        }
+
+    }
+
+    catch (Exception e) {
+
+        throw new RuntimeException("Unable to delete resume.");
+
+    }
+
+}
+
 }

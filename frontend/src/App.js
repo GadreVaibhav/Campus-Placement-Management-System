@@ -2,18 +2,29 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-
 import Profile from "./pages/Profile";
 import StudentDashboard from "./pages/StudentDashboard";
-import UploadResume from "./pages/UploadResume";
-import PlacementDrives from "./pages/PlacementDrives";
-import Applications from "./pages/Applications";
+import PlacementDrive from "./pages/PlacementDrive";
+
+
+import RecruiterLayout from "./components/recruiter/RecruiterLayout";
+import RecruiterProfile from "./pages/recruiter/RecruiterProfile";
+import RecruiterPlacementDrives from "./pages/recruiter/RecruiterPlacementDrives";
+import RecruiterInterviews from "./pages/recruiter/RecruiterInterviews";
+import RecruiterStudents from "./pages/recruiter/RecruiterStudents";
+import RecruiterDashboard from "./pages/recruiter/RecruiterDashboard";
+import RecruiterApplications from "./pages/recruiter/RecruiterApplications";
 
 import EditProfile from "./pages/EditProfile";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Documents from "./pages/Documents";
+import JobDetails from "./pages/JobDetails";
+import MyApplications from "./pages/MyApplications";
+import StudentInterviews from "./pages/StudentInterviews";
 
 
-import RecruiterDashboard from "./pages/RecruiterDashboard";
-import RecruiterApplications from "./pages/RecruiterApplications";
+
 import ScheduleInterview from "./pages/ScheduleInterview";
 
 import AdminDashboard from "./pages/AdminDashboard";
@@ -72,51 +83,79 @@ function App() {
                 element={<Profile />}
             />
 
-            <Route
+           <Route
                 path="/student/jobs"
-                element={<PlacementDrives />}
+                element={<PlacementDrive />}
             />
 
             <Route
-                path="/student/applications"
-                element={<Applications />}
+                path="/student/interviews"
+                element={<StudentInterviews />}
             />
 
-            <Route
-                path="/student/documents"
-                element={<UploadResume />}
-            />
+        
 
             <Route
                 path="/student/profile/edit"
                 element={<EditProfile />}
             />
 
-        </Route>
+            <Route path="/student/edit-profile" element={<EditProfile />} />
 
-        {/* Recruiter */}
+             <  Route path="/student/documents" element={<Documents />} />
 
-         <Route
-          element={
-            <ProtectedRoute allowedRole="RECRUITER">
-              <Layout />
-            </ProtectedRoute>
-          }
-         >
+             <Route
+                    path="/student/jobs/:id"
+                    element={<JobDetails />}
+            />
 
-          <Route path="/recruiter" element={<RecruiterDashboard />} />
+            <Route
 
-          <Route
-            path="/recruiter/applications"
-            element={<RecruiterApplications />}
-          />
+                path="/student/my-applications"
 
-          <Route
-            path="/recruiter/interview/:applicationId"
-            element={<ScheduleInterview />}
-          />
+                element={<MyApplications />}
+
+            />
 
         </Route>
+
+            {/* Recruiter routs */}
+            
+                <Route path="/recruiter" element={<RecruiterLayout />}>
+
+                <Route
+                    path="dashboard"
+                    element={<RecruiterDashboard />}
+                />
+
+                <Route
+                    path="profile"
+                    element={<RecruiterProfile />}
+                />
+
+                <Route
+                    path="drives"
+                    element={<RecruiterPlacementDrives />}
+                />
+
+                <Route
+                    path="applications"
+                    element={<RecruiterApplications />}
+                />
+
+                <Route
+                    path="interviews"
+                    element={<RecruiterInterviews />}
+                />
+
+                <Route
+                    path="students"
+                    element={<RecruiterStudents />}
+                />
+
+            </Route>
+
+      
 
         {/* Admin */}
 
@@ -194,7 +233,19 @@ function App() {
 
       </Routes>
 
+      <>
+    {/* Your Routes */}
+
+
+    <ToastContainer
+        position="top-right"
+        autoClose={3000}
+    />
+</>
+
     </BrowserRouter>
+
+    
 
   );
 

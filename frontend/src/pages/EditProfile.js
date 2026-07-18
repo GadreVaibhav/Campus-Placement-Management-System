@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
-import { getStudent, updateStudent } from "../services/StudentService";
+import {
+    getLoggedInStudent,
+    updateLoggedInStudent
+} from "../services/StudentService";
+
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function EditProfile() {
 
@@ -23,15 +28,19 @@ function EditProfile() {
 
     });
 
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
+
         loadStudent();
+
     }, []);
 
     const loadStudent = async () => {
 
         try {
 
-            const response = await getStudent(1);
+            const response = await getLoggedInStudent();
 
             setStudent(response.data);
 
@@ -40,6 +49,8 @@ function EditProfile() {
         catch (error) {
 
             console.log(error);
+
+            toast.error("Unable to load profile.");
 
         }
 
@@ -61,13 +72,36 @@ function EditProfile() {
 
         e.preventDefault();
 
+        setLoading(true);
+
+        const request = {
+
+            name: student.name,
+            email: student.email,
+            phone: student.phone,
+            branch: student.branch,
+            graduationYear: student.graduationYear,
+            primaryLanguage: student.primaryLanguage,
+            cgpa: student.cgpa,
+            skill: student.skill,
+            tenthPercentage: student.tenthPercentage,
+            twelfthPercentage: student.twelfthPercentage,
+            currentBacklogs: student.currentBacklogs,
+            totalBacklogs: student.totalBacklogs
+
+        };
+
         try {
 
-            await updateStudent(1, student);
+            await updateLoggedInStudent(request);
 
-            alert("Profile Updated Successfully");
+            toast.success("Profile updated successfully.");
 
-            navigate("/student");
+            setTimeout(() => {
+
+                navigate("/student");
+
+            }, 1200);
 
         }
 
@@ -75,7 +109,37 @@ function EditProfile() {
 
             console.log(error);
 
-            alert("Unable to update profile");
+            if (error.response?.data) {
+
+                if (typeof error.response.data === "object") {
+
+                    Object.values(error.response.data).forEach((message) => {
+
+                        toast.error(message);
+
+                    });
+
+                }
+
+                else {
+
+                    toast.error(error.response.data);
+
+                }
+
+            }
+
+            else {
+
+                toast.error("Something went wrong. Please try again.");
+
+            }
+
+        }
+
+        finally {
+
+            setLoading(false);
 
         }
 
@@ -271,10 +335,13 @@ function EditProfile() {
                         </div>
 
                         <button
-                            className="btn btn-success mt-3"
                             type="submit"
+                            className="btn btn-success mt-3"
+                            disabled={loading}
                         >
-                            Save Changes
+
+                            {loading ? "Saving..." : "Save Changes"}
+
                         </button>
 
                     </form>

@@ -18,12 +18,9 @@ function AdminSidebar() {
     const navigate = useNavigate();
 
     const logout = () => {
-
-        localStorage.removeItem("token");
-        localStorage.removeItem("role");
-
-        navigate("/");
-    };
+    localStorage.clear();
+    navigate("/");
+};
 
     const menu = [
 

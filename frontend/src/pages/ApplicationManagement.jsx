@@ -175,7 +175,7 @@ function ApplicationManagement() {
 
                                 <td>{application.companyName}</td>
 
-                                <td>{application.jobRole}</td>
+                                <td>{application.jobTitle}</td>
 
                                 <td>
 
@@ -191,7 +191,7 @@ function ApplicationManagement() {
 
                                 <td>
 
-                                    {application.applicationDate}
+                                    {application.appliedAt?.substring(0,10)}
 
                                 </td>
 

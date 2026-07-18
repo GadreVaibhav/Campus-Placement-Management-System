@@ -1,0 +1,25 @@
+package com.placement.portal.service.impl;
+
+import org.springframework.stereotype.Service;
+
+import com.placement.portal.dto.RecruiterDashboardResponseDTO;
+import com.placement.portal.service.RecruiterDashboardService;
+
+@Service
+public class RecruiterDashboardServiceImpl
+        implements RecruiterDashboardService {
+
+    @Override
+    public RecruiterDashboardResponseDTO getDashboard() {
+
+        RecruiterDashboardResponseDTO dto =
+                new RecruiterDashboardResponseDTO();
+
+        dto.setTotalDrives(0L);
+        dto.setActiveDrives(0L);
+        dto.setTotalApplications(0L);
+        dto.setScheduledInterviews(0L);
+
+        return dto;
+    }
+}

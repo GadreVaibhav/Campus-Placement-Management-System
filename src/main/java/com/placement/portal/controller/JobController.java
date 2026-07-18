@@ -10,6 +10,8 @@ import com.placement.portal.dto.JobResponseDTO;
 import com.placement.portal.service.JobService;
 
 import jakarta.validation.Valid;
+import java.util.List;
+import org.springframework.security.core.Authentication;
 
 @RestController
 @RequestMapping("/api/jobs")
@@ -135,6 +137,21 @@ public ResponseEntity<Page<JobResponseDTO>> searchJobs(
                     direction));
 }
 
+// ============================
+// Available Jobs for Student
+// ============================
+
+@GetMapping("/available")
+public ResponseEntity<List<JobResponseDTO>> getAvailableJobs(
+        Authentication authentication) {
+
+    System.out.println(authentication.getName());
+
+    return ResponseEntity.ok(
+            jobService.getAvailableJobs(authentication.getName())
+    );
+}
+
     // ============================
     // Delete Job
     // ============================
@@ -148,4 +165,6 @@ public ResponseEntity<Page<JobResponseDTO>> searchJobs(
         return ResponseEntity.ok(
                 "Job deleted successfully.");
     }
+
+    
 }

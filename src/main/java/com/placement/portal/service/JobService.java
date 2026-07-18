@@ -1,5 +1,7 @@
 package com.placement.portal.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.placement.portal.dto.JobRequestDTO;
@@ -75,4 +77,10 @@ public interface JobService {
 
     void deleteJob(
             Long jobId);
+
+            // ==========================================
+// Student - Available Jobs
+// ==========================================
+
+List<JobResponseDTO> getAvailableJobs(String studentEmail);
 }

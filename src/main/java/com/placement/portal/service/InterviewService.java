@@ -15,24 +15,16 @@ public interface InterviewService {
             Long applicationId);
 
     boolean interviewExists(Long applicationId);
-    // ==========================================
-// Get All Interviews
-// ==========================================
 
-List<InterviewResponseDTO> getAllInterviews();
+    List<InterviewResponseDTO> getAllInterviews();
 
-// ==========================================
-// Update Interview
-// ==========================================
+    InterviewResponseDTO updateInterview(
+            Long interviewId,
+            InterviewRequestDTO requestDTO);
 
-InterviewResponseDTO updateInterview(
-        Long interviewId,
-        InterviewRequestDTO requestDTO);
+    void deleteInterview(Long interviewId);
 
-// ==========================================
-// Delete Interview
-// ==========================================
-
-void deleteInterview(Long interviewId);
+    // NEW
+    List<InterviewResponseDTO> getMyInterviews(String studentEmail);
 
 }

@@ -1,39 +1,29 @@
 import api from "../api/api";
 
-export const applyForDrive = (studentId, placementDriveId) => {
+/* ---------- STUDENT ---------- */
 
-    return api.post("/applications/apply", {
+export const applyForJob = (jobId) =>
+    api.post(`/applications/apply/${jobId}`);
 
-        studentId,
+export const getMyApplications = () =>
+    api.get("/applications/my");
 
-        placementDriveId
+export const getMyRecentApplications = () =>
+    api.get("/applications/my/recent");
 
-    });
+/* ---------- ADMIN ---------- */
 
-};
+export const getAllApplications = () =>
+    api.get("/applications");
 
-export const getAllApplications = () => {
-    return api.get("/applications");
-};
+export const getRecentApplications = () =>
+    api.get("/applications/recent");
 
-export const updateApplicationStatus = (applicationId, status) => {
-    return api.put(
-        `/applications/${applicationId}/status?status=${status}`
-    );
-};
+export const getApplicationById = (id) =>
+    api.get(`/applications/${id}`);
 
-export const getRecentApplications = () => {
-    return api.get("/applications/recent");
-};
+export const updateApplicationStatus = (id, status) =>
+    api.put(`/applications/${id}/status?status=${status}`);
 
-export const getApplicationById = (applicationId) => {
-
-    return api.get(`/applications/${applicationId}`);
-
-};
-
-export const deleteApplication = (applicationId) => {
-
-    return api.delete(`/applications/${applicationId}`);
-
-};
+export const deleteApplication = (id) =>
+    api.delete(`/applications/${id}`);

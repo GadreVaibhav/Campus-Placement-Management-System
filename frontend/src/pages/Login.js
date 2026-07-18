@@ -38,10 +38,12 @@ function Login() {
 
       setLoading(true);
 
-      const response = await login(formData);
+      localStorage.clear();
 
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("role", response.data.role);
+const response = await login(formData);
+
+localStorage.setItem("token", response.data.token);
+localStorage.setItem("role", response.data.role);
 
       alert("Login Successful!");
 

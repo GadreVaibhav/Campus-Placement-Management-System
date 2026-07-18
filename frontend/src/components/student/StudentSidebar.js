@@ -7,7 +7,6 @@ import {
     FaBriefcase,
     FaClipboardList,
     FaCalendarCheck,
-    FaCog,
     FaSignOutAlt,
     FaUniversity
 } from "react-icons/fa";
@@ -20,8 +19,7 @@ function StudentSidebar() {
 
     const handleLogout = () => {
 
-        localStorage.clear();
-
+         localStorage.clear();
         navigate("/");
 
     };
@@ -61,7 +59,7 @@ function StudentSidebar() {
                 <NavLink
                     to="/student/documents"
                     className="student-link"
-                >
+                 >
                     <FaFileAlt />
                     <span>Documents</span>
                 </NavLink>
@@ -75,11 +73,11 @@ function StudentSidebar() {
                 </NavLink>
 
                 <NavLink
-                    to="/student/applications"
+                    to="/student/my-applications"
                     className="student-link"
                 >
                     <FaClipboardList />
-                    <span>Applications</span>
+                    <span>My Applications</span>
                 </NavLink>
 
                 <NavLink
@@ -90,13 +88,7 @@ function StudentSidebar() {
                     <span>Interviews</span>
                 </NavLink>
 
-                <NavLink
-                    to="/student/settings"
-                    className="student-link"
-                >
-                    <FaCog />
-                    <span>Settings</span>
-                </NavLink>
+             
 
             </nav>
 

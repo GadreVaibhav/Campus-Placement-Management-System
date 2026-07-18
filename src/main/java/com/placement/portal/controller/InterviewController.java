@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.security.core.Authentication;
 import com.placement.portal.dto.InterviewRequestDTO;
 import com.placement.portal.dto.InterviewResponseDTO;
 import com.placement.portal.service.InterviewService;
@@ -124,5 +124,21 @@ public ResponseEntity<String> deleteInterview(
     return ResponseEntity.ok(
             "Interview deleted successfully.");
 
+}
+// ==========================================
+// My Interviews
+// ==========================================
+
+@GetMapping("/my")
+public ResponseEntity<List<InterviewResponseDTO>>
+getMyInterviews(Authentication authentication) {
+
+    String email = authentication.getName();
+
+    return ResponseEntity.ok(
+
+            interviewService.getMyInterviews(email)
+
+    );
 }
 }

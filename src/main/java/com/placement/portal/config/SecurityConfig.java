@@ -29,106 +29,172 @@ public class SecurityConfig {
             throws Exception {
 
         http
-                .cors(cors -> {})
+
                 .csrf(csrf -> csrf.disable())
+
+                .cors(cors -> {})
+
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                .authenticationProvider(authenticationProvider)
+
+                .addFilterBefore(
+                        jwtAuthFilter,
+                        UsernamePasswordAuthenticationFilter.class)
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // Allow OPTIONS requests
-                        .requestMatchers(
-                                HttpMethod.OPTIONS,
-                                "/**")
-                        .permitAll()
+                        // ==================================================
+                        // PUBLIC
+                        // ==================================================
 
-                        // Authentication
-                        .requestMatchers("/api/auth/**")
-                        .permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // Swagger
+                        .requestMatchers("/api/auth/**").permitAll()
+
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html")
                         .permitAll()
 
-                        // ===========================
-                        // ADMIN
-                        // ===========================
-
-                        .requestMatchers("/api/dashboard/**")
-                        .hasRole("ADMIN")
+                        // ==================================================
+                        // STUDENT
+                        // ==================================================
 
                         .requestMatchers(
                                 HttpMethod.GET,
-                                "/api/students",
-                                "/api/students/search",
-                                "/api/students/*")
-                        .hasRole("ADMIN")
+                                "/api/students/me")
+                        .hasRole("STUDENT")
+
+                        .requestMatchers(
+                                HttpMethod.PUT,
+                                "/api/students/me")
+                        .hasRole("STUDENT")
+
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/students/resume")
+                        .hasRole("STUDENT")
+
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/students/resume")
+                        .hasRole("STUDENT")
 
                         .requestMatchers(
                                 HttpMethod.DELETE,
-                                "/api/students/*")
-                        .hasRole("ADMIN")
+                                "/api/students/resume")
+                        .hasRole("STUDENT")
 
-                        // ===========================
-                        // STUDENT
-                        // ===========================
+                        .requestMatchers(
+                                "/api/students/profile/**")
+                        .hasRole("STUDENT")
 
-                       .requestMatchers("/api/students/me")
-.permitAll()
-                        // ===========================
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/jobs/available",
+                                "/api/jobs/*")
+                        .hasRole("STUDENT")
+
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/applications/apply/*")
+                        .hasRole("STUDENT")
+
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/applications/my",
+                                "/api/applications/my/recent")
+                        .hasRole("STUDENT")
+
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/interviews/my")
+                        .hasRole("STUDENT")
+
+                        // ==================================================
                         // RECRUITER
-                        // ===========================
+                        // ==================================================
 
                         .requestMatchers("/api/recruiter/**")
                         .hasRole("RECRUITER")
 
-                        // Everything else
-                        .anyRequest()
-                        .authenticated()
-                )
+                        .requestMatchers("/api/recruiter/dashboard/**")
+                        .hasRole("RECRUITER")   
 
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(
-                                SessionCreationPolicy.STATELESS))
+                        // ==================================================
+                        // ADMIN DASHBOARD
+                        // ==================================================
 
-                .authenticationProvider(authenticationProvider)
+                        .requestMatchers("/api/dashboard/**")
+                        .hasRole("ADMIN")
 
-                .addFilterBefore(
-                        jwtAuthFilter,
-                        UsernamePasswordAuthenticationFilter.class
-                );
+                        // ==================================================
+                        // ADMIN STUDENTS
+                        // ==================================================
+
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/students")
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/students/search")
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/students/{studentId}")
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(
+                                HttpMethod.PUT,
+                                "/api/students/{studentId}")
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(
+                                HttpMethod.DELETE,
+                                "/api/students/{studentId}")
+                        .hasRole("ADMIN")
+
+                        // ==================================================
+                        // ADMIN APPLICATIONS
+                        // ==================================================
+
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/applications")
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/applications/recent")
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/applications/{applicationId}")
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(
+                                HttpMethod.PUT,
+                                "/api/applications/{applicationId}/status")
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(
+                                HttpMethod.DELETE,
+                                "/api/applications/{applicationId}")
+                        .hasRole("ADMIN")
+
+                        // ==================================================
+                        // EVERYTHING ELSE
+                        // ==================================================
+
+                        .anyRequest().authenticated());
 
         return http.build();
-    }
-
-    @Bean
-    public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource() {
-
-        org.springframework.web.cors.CorsConfiguration configuration =
-                new org.springframework.web.cors.CorsConfiguration();
-
-        configuration.setAllowedOrigins(
-                java.util.List.of("http://localhost:3000"));
-
-        configuration.setAllowedMethods(
-                java.util.List.of(
-                        "GET",
-                        "POST",
-                        "PUT",
-                        "DELETE",
-                        "OPTIONS"));
-
-        configuration.setAllowedHeaders(
-                java.util.List.of("*"));
-
-        configuration.setAllowCredentials(true);
-
-        org.springframework.web.cors.UrlBasedCorsConfigurationSource source =
-                new org.springframework.web.cors.UrlBasedCorsConfigurationSource();
-
-        source.registerCorsConfiguration("/**", configuration);
-
-        return source;
     }
 }

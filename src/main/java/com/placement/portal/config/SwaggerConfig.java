@@ -1,11 +1,7 @@
 package com.placement.portal.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.info.License;
-
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 
@@ -16,9 +12,9 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
 
     @Bean
-    public OpenAPI campusPlacementAPI() {
+    public OpenAPI customOpenAPI() {
 
-        final String securitySchemeName = "bearerAuth";
+        final String securitySchemeName = "Bearer Authentication";
 
         return new OpenAPI()
 
@@ -26,42 +22,28 @@ public class SwaggerConfig {
 
                         .title("Campus Placement Management System API")
 
-                        .description("REST API developed using Spring Boot, Spring Security, JWT Authentication and MySQL.")
-
                         .version("1.0")
 
-                        .contact(new Contact()
+                        .description("Campus Placement Management System"))
 
-                                .name("Vaibhav Gadre")
+                .addSecurityItem(
 
-                                .email("vaibhavgadre@gmail.com"))
+                        new SecurityRequirement()
 
-                        .license(new License()
+                                .addList(securitySchemeName))
 
-                                .name("Apache 2.0")))
+                .schemaRequirement(
 
-                .addSecurityItem(new SecurityRequirement()
+                        securitySchemeName,
 
-                        .addList(securitySchemeName))
+                        new SecurityScheme()
 
-                .components(new Components()
+                                .name(securitySchemeName)
 
-                        .addSecuritySchemes(
+                                .type(SecurityScheme.Type.HTTP)
 
-                                securitySchemeName,
+                                .scheme("bearer")
 
-                                new SecurityScheme()
-
-                                        .name(securitySchemeName)
-
-                                        .type(SecurityScheme.Type.HTTP)
-
-                                        .scheme("bearer")
-
-                                        .bearerFormat("JWT")
-
-                        ));
-
+                                .bearerFormat("JWT"));
     }
-
 }

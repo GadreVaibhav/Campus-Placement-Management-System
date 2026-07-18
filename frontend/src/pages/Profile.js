@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { getLoggedInStudent } from "../services/StudentService";
-
+import { useNavigate } from "react-router-dom";
 function Profile() {
 
     const [student, setStudent] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         loadStudent();
@@ -39,11 +40,10 @@ function Profile() {
 
             <div className="card shadow">
 
-                <div className="card-header bg-primary text-white">
+               <div className="card-header bg-primary text-white">
+    <h3 className="mb-0">Student Profile</h3>
+</div>
 
-                    <h3>Student Profile</h3>
-
-                </div>
 
                 <div className="card-body">
 
@@ -51,103 +51,139 @@ function Profile() {
 
                         <div className="col-md-6 mb-3">
 
-                            <strong>Name</strong>
+                           <strong>
+    <i className="bi bi-person-fill me-2 text-primary"></i>
+    Name
+</strong>
 
-                            <p>{student.name}</p>
-
-                        </div>
-
-                        <div className="col-md-6 mb-3">
-
-                            <strong>Email</strong>
-
-                            <p>{student.email}</p>
+                           <p>{student.name || "Not Provided"}</p>
 
                         </div>
 
                         <div className="col-md-6 mb-3">
 
-                            <strong>Phone</strong>
+                            <strong>
+    <i className="bi bi-envelope-fill me-2 text-primary"></i>
+    Email
+</strong>
 
-                            <p>{student.phone}</p>
-
-                        </div>
-
-                        <div className="col-md-6 mb-3">
-
-                            <strong>Branch</strong>
-
-                            <p>{student.branch}</p>
+                            <p>{student.email || "Not Provided"}</p>
 
                         </div>
 
                         <div className="col-md-6 mb-3">
 
-                            <strong>Graduation Year</strong>
+                            <strong>
+    <i className="bi bi-telephone-fill me-2 text-primary"></i>
+    Phone
+</strong>
 
-                            <p>{student.graduationYear}</p>
-
-                        </div>
-
-                        <div className="col-md-6 mb-3">
-
-                            <strong>Primary Language</strong>
-
-                            <p>{student.primaryLanguage}</p>
+                            <p>{student.phone || "Not Provided"}</p>
 
                         </div>
 
                         <div className="col-md-6 mb-3">
 
-                            <strong>CGPA</strong>
+                           <strong>
+    <i className="bi bi-mortarboard-fill me-2 text-primary"></i>
+    Branch
+</strong>
 
-                            <p>{student.cgpa}</p>
+                        <p>{student.branch || "Not Provided"}</p>
+                        </div>
+
+                        <div className="col-md-6 mb-3">
+
+                           <strong>
+    <i className="bi bi-calendar-event-fill me-2 text-primary"></i>
+    Graduation Year
+</strong>
+
+                            <p>{student.graduationYear || "Not Provided"}</p>
 
                         </div>
 
                         <div className="col-md-6 mb-3">
 
-                            <strong>Skill</strong>
+                           <strong>
+    <i className="bi bi-translate me-2 text-primary"></i>
+    Primary Language
+</strong>
 
-                            <p>{student.skill}</p>
-
-                        </div>
-
-                        <div className="col-md-6 mb-3">
-
-                            <strong>10th %</strong>
-
-                            <p>{student.tenthPercentage}</p>
+                            <p>{student.primaryLanguage || "Not Provided"}</p>
 
                         </div>
 
                         <div className="col-md-6 mb-3">
 
-                            <strong>12th %</strong>
+                            <strong>
+    <i className="bi bi-award-fill me-2 text-primary"></i>
+    CGPA
+</strong>
 
-                            <p>{student.twelfthPercentage}</p>
-
-                        </div>
-
-                        <div className="col-md-6 mb-3">
-
-                            <strong>Current Backlogs</strong>
-
-                            <p>{student.currentBacklogs}</p>
+                            <p>{student.cgpa ?? "Not Provided"}</p>
 
                         </div>
 
                         <div className="col-md-6 mb-3">
 
-                            <strong>Total Backlogs</strong>
-
-                            <p>{student.totalBacklogs}</p>
+                            <strong>
+    <i className="bi bi-code-slash me-2 text-primary"></i>
+    Skills
+</strong>
+                           <p>{student.skill || "Not Provided"}</p>
 
                         </div>
 
                         <div className="col-md-6 mb-3">
 
-                            <strong>Placement Status</strong>
+                           <strong>
+    <i className="bi bi-book-fill me-2 text-primary"></i>
+    10th Percentage
+</strong>
+
+                           <p>{student.tenthPercentage ?? "Not Provided"}</p>
+
+                        </div>
+
+                        <div className="col-md-6 mb-3">
+
+                            <strong>
+    <i className="bi bi-journal-bookmark-fill me-2 text-primary"></i>
+    12th Percentage
+</strong>
+
+                            <p>{student.twelfthPercentage ?? "Not Provided"}</p>
+
+                        </div>
+
+                        <div className="col-md-6 mb-3">
+
+                            <strong>
+    <i className="bi bi-exclamation-circle-fill me-2 text-primary"></i>
+    Current Backlogs
+</strong>
+                       <p>{student.currentBacklogs ?? "Not Provided"}</p>
+
+                        </div>
+
+                        <div className="col-md-6 mb-3">
+
+                         <strong>
+    <i className="bi bi-list-check me-2 text-primary"></i>
+    Total Backlogs
+</strong>
+
+                           <p>{student.totalBacklogs ?? "Not Provided"}</p>
+
+                        </div>
+
+                        <div className="col-md-6 mb-3">
+
+                           <strong>
+    <i className="bi bi-briefcase-fill me-2 text-primary"></i>
+    Placement Status
+</strong>
 
                             <p>
 
@@ -161,9 +197,22 @@ function Profile() {
 
                 </div>
 
-            </div>
 
+            </div>
+            
+                <div className="d-flex justify-content-end mt-4">
+
+                    <button
+                        className="btn btn-primary"
+                        onClick={() => navigate("/student/edit-profile")}
+                    >
+                        <i className="bi bi-pencil-square me-2"></i>
+                        Edit Profile
+                    </button>
+
+                </div>
         </div>
+        
 
     );
 

@@ -1,5 +1,8 @@
 package com.placement.portal.service.impl;
 
+import java.time.LocalDate;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,20 +12,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
+import com.placement.portal.repository.StudentRepository;
 import com.placement.portal.dto.JobRequestDTO;
 import com.placement.portal.dto.JobResponseDTO;
 import com.placement.portal.entity.Company;
 import com.placement.portal.entity.Job;
 import com.placement.portal.entity.Recruiter;
+import com.placement.portal.entity.Student;
 import com.placement.portal.exception.CompanyNotFoundException;
 import com.placement.portal.exception.JobNotFoundException;
+import com.placement.portal.exception.StudentNotFoundException;
 import com.placement.portal.mapper.JobMapper;
 import com.placement.portal.repository.CompanyRepository;
 import com.placement.portal.repository.JobRepository;
 import com.placement.portal.repository.RecruiterRepository;
 import com.placement.portal.service.JobService;
 import com.placement.portal.specification.JobSpecification;
+import java.util.List;
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -44,18 +50,23 @@ public class JobServiceImpl implements JobService {
 
     private final RecruiterRepository recruiterRepository;
 
-    public JobServiceImpl(
+    private final StudentRepository studentRepository;
 
-            JobRepository jobRepository,
+   public JobServiceImpl(
 
-            CompanyRepository companyRepository,
+        JobRepository jobRepository,
 
-            RecruiterRepository recruiterRepository) {
+        CompanyRepository companyRepository,
 
-        this.jobRepository = jobRepository;
-        this.companyRepository = companyRepository;
-        this.recruiterRepository = recruiterRepository;
-    }
+        RecruiterRepository recruiterRepository,
+
+        StudentRepository studentRepository) {
+
+    this.jobRepository = jobRepository;
+    this.companyRepository = companyRepository;
+    this.recruiterRepository = recruiterRepository;
+    this.studentRepository = studentRepository;
+}
         // ==========================================
     // Create Job
     // ==========================================
@@ -276,4 +287,42 @@ public class JobServiceImpl implements JobService {
 
         logger.info("Job deleted successfully.");
     }
+
+    @Override
+public List<JobResponseDTO> getAvailableJobs(String studentEmail) {
+
+    Student student = studentRepository.findByUserEmail(studentEmail)
+            .orElseThrow(() ->
+                    new StudentNotFoundException("Student not found"));
+
+    List<Job> jobs = jobRepository.findAll();
+
+    return jobs.stream()
+
+            // Only OPEN jobs
+            .filter(job ->
+                    "OPEN".equalsIgnoreCase(job.getStatus()))
+
+            // Deadline not passed
+            .filter(job ->
+                    !job.getLastDate().isBefore(LocalDate.now()))
+
+            .map(job -> {
+
+                JobResponseDTO dto = JobMapper.toResponseDTO(job);
+
+                dto.setEligible(
+
+                        student.getCgpa()
+                                >= job.getEligibilityCgpa()
+
+                );
+
+                return dto;
+
+            })
+
+            .collect(Collectors.toList());
+
+}
 }

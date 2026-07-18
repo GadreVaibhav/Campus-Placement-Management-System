@@ -2,7 +2,7 @@ package com.placement.portal.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
+import com.placement.portal.entity.Application;
 @Entity
 @Table(name = "interviews")
 public class Interview {
@@ -11,10 +11,9 @@ public class Interview {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+   @OneToOne
     @JoinColumn(name = "application_id", nullable = false)
-    private StudentApplication studentApplication;
-
+    private Application application;
     private LocalDateTime interviewTime;
     private String interviewMode; 
     private String interviewerName;
@@ -27,8 +26,13 @@ public class Interview {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public StudentApplication getStudentApplication() { return studentApplication; }
-    public void setStudentApplication(StudentApplication studentApplication) { this.studentApplication = studentApplication; }
+   public Application getApplication() {
+    return application;
+}
+
+public void setApplication(Application application) {
+    this.application = application;
+}
 
     public LocalDateTime getInterviewTime() { return interviewTime; }
     public void setInterviewTime(LocalDateTime interviewTime) { this.interviewTime = interviewTime; }

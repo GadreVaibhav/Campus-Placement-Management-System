@@ -45,15 +45,12 @@ public class StudentDashboardServiceImpl
 
     @Override
     public StudentDashboardResponseDTO
-            getStudentDashboard(Long studentId) {
+            getStudentDashboard(String email) {
 
-        Student student =
-                studentRepository.findById(studentId)
-
-                        .orElseThrow(() ->
-
-                                new StudentNotFoundException(
-                                        "Student not found."));
+       Student student =
+        studentRepository.findByUserEmail(email)
+                .orElseThrow(() ->
+                        new StudentNotFoundException("Student not found."));
 
         StudentDashboardResponseDTO dto =
                 new StudentDashboardResponseDTO();
@@ -78,11 +75,11 @@ public class StudentDashboardServiceImpl
 
                         .size());
 
-        dto.setInterviews(
+       dto.setInterviews(
 
-                interviewRepository
+        interviewRepository
 
-                        .countByStudentApplicationStudent(student));
+                .countByApplicationStudent(student));
 
         return dto;
 

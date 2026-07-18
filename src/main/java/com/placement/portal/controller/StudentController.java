@@ -13,13 +13,20 @@ import com.placement.portal.dto.StudentResponseDTO;
 import com.placement.portal.dto.StudentUpdateDTO;
 import com.placement.portal.service.StudentService;
 
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.web.multipart.MultipartFile;
+
+
+
 @RestController
 @RequestMapping("/api/students")
 @CrossOrigin(origins = "http://localhost:3000")
 public class StudentController {
 
     private final StudentService studentService;
-
+        
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
@@ -60,17 +67,79 @@ public ResponseEntity<StudentResponseDTO> getLoggedInStudent(
     // =====================================
     // Update Profile
     // =====================================
+@PutMapping("/me")
+public ResponseEntity<StudentResponseDTO> updateMyProfile(
+        Authentication authentication,
+        @Valid @RequestBody StudentRequestDTO dto) {
 
-    @PutMapping("/profile/{userId}")
-    public ResponseEntity<StudentResponseDTO> updateProfile(
-            @PathVariable Long userId,
-            @Valid @RequestBody StudentRequestDTO dto) {
+    String email = authentication.getName();
 
-        return ResponseEntity.ok(
-                studentService.updateProfile(userId, dto)
-        );
-    }
+    return ResponseEntity.ok(
+            studentService.updateLoggedInStudent(email, dto)
+    );
+}
 
+// =====================================
+// Upload Resume
+// =====================================
+
+@PostMapping("/resume")
+public ResponseEntity<StudentResponseDTO> uploadResume(
+
+        Authentication authentication,
+
+        @RequestParam("file") MultipartFile file) {
+
+    String email = authentication.getName();
+
+    return ResponseEntity.ok(
+
+            studentService.uploadResume(email, file)
+
+    );
+}
+
+// =====================================
+// Download Resume
+// =====================================
+
+@GetMapping("/resume")
+public ResponseEntity<Resource> downloadResume(
+
+        Authentication authentication) {
+
+    String email = authentication.getName();
+
+    Resource resource = studentService.downloadResume(email);
+
+    return ResponseEntity.ok()
+
+            .contentType(MediaType.APPLICATION_PDF)
+
+            .header(
+                    HttpHeaders.CONTENT_DISPOSITION,
+                    "attachment; filename=\"resume.pdf\"")
+
+            .body(resource);
+
+}
+
+// =====================================
+// Delete Resume
+// =====================================
+
+@DeleteMapping("/resume")
+public ResponseEntity<String> deleteResume(
+
+        Authentication authentication) {
+
+    String email = authentication.getName();
+
+    studentService.deleteResume(email);
+
+    return ResponseEntity.ok("Resume deleted successfully.");
+
+}
     // =====================================
     // Get All Students
     // =====================================

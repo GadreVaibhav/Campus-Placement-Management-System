@@ -1,7 +1,9 @@
 import api from "../api/api";
 
-export const getStudentDashboard = (studentId) => {
+export const getDashboard = () => {
+    return api.get("/student-dashboard");
+};
 
-    return api.get(`/student-dashboard/${studentId}`);
-
+export const getRecentApplications = () => {
+    return api.get("/applications/my/recent");
 };

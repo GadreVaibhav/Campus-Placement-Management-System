@@ -4,6 +4,6 @@ import com.placement.portal.dto.StudentDashboardResponseDTO;
 
 public interface StudentDashboardService {
 
-    StudentDashboardResponseDTO getStudentDashboard(Long studentId);
+    StudentDashboardResponseDTO getStudentDashboard(String email);
 
 }

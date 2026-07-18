@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import {
     getAllApplications,
     updateApplicationStatus
-} from "../services/ApplicationService";
+} from "../../services/ApplicationService";
 import { Link, useNavigate } from "react-router-dom";
 import {
     interviewExists
-} from "../services/InterviewService";
+} from "../../services/InterviewService";
 function RecruiterApplications() {
 
     const navigate = useNavigate();

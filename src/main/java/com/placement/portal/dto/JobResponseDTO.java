@@ -33,6 +33,8 @@ public class JobResponseDTO {
 
     private LocalDateTime createdAt;
 
+    private Boolean eligible;
+
     public JobResponseDTO() {
     }
 
@@ -146,5 +148,13 @@ public class JobResponseDTO {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Boolean getEligible() {
+    return eligible;
+    }
+
+    public void setEligible(Boolean eligible) {
+        this.eligible = eligible;
     }
 }

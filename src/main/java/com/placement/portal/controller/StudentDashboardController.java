@@ -1,6 +1,7 @@
 package com.placement.portal.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import com.placement.portal.dto.StudentDashboardResponseDTO;
@@ -13,25 +14,17 @@ public class StudentDashboardController {
 
     private final StudentDashboardService studentDashboardService;
 
-    public StudentDashboardController(
-            StudentDashboardService studentDashboardService) {
-
-        this.studentDashboardService =
-                studentDashboardService;
+    public StudentDashboardController(StudentDashboardService studentDashboardService) {
+        this.studentDashboardService = studentDashboardService;
     }
 
-    @GetMapping("/{studentId}")
+    @GetMapping
+    public ResponseEntity<StudentDashboardResponseDTO> getDashboard(
+            Authentication authentication) {
 
-    public ResponseEntity<StudentDashboardResponseDTO>
-            getDashboard(
-
-                    @PathVariable Long studentId) {
+        String email = authentication.getName();
 
         return ResponseEntity.ok(
-
-                studentDashboardService
-                        .getStudentDashboard(studentId));
-
+                studentDashboardService.getStudentDashboard(email));
     }
-
 }

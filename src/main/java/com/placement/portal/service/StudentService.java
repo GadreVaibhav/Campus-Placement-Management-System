@@ -2,7 +2,9 @@ package com.placement.portal.service;
 
 import java.util.List;
 
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.placement.portal.dto.StudentRequestDTO;
 import com.placement.portal.dto.StudentResponseDTO;
@@ -21,9 +23,9 @@ public interface StudentService {
     // Update Profile
     // ==========================================
 
-    StudentResponseDTO updateProfile(
-            Long userId,
-            StudentRequestDTO requestDTO);
+   StudentResponseDTO updateLoggedInStudent(
+        String email,
+        StudentRequestDTO requestDTO);
 
     // ==========================================
     // Get Student By ID
@@ -84,4 +86,9 @@ public interface StudentService {
         Long studentId,
         StudentUpdateDTO dto);
 
+        StudentResponseDTO uploadResume(String email, MultipartFile file);
+
+Resource downloadResume(String email);
+
+void deleteResume(String email);
 }
