@@ -11,9 +11,9 @@ import RecruiterLayout from "./components/recruiter/RecruiterLayout";
 import RecruiterProfile from "./pages/recruiter/RecruiterProfile";
 import RecruiterPlacementDrives from "./pages/recruiter/RecruiterPlacementDrives";
 import RecruiterInterviews from "./pages/recruiter/RecruiterInterviews";
-import RecruiterStudents from "./pages/recruiter/RecruiterStudents";
 import RecruiterDashboard from "./pages/recruiter/RecruiterDashboard";
 import RecruiterApplications from "./pages/recruiter/RecruiterApplications";
+import RecruiterOffers from "./pages/recruiter/RecruiterOffers";
 
 import EditProfile from "./pages/EditProfile";
 import { ToastContainer } from "react-toastify";
@@ -22,6 +22,7 @@ import Documents from "./pages/Documents";
 import JobDetails from "./pages/JobDetails";
 import MyApplications from "./pages/MyApplications";
 import StudentInterviews from "./pages/StudentInterviews";
+// import StudentOffers from "./pages/StudentOffers";
 
 
 
@@ -117,6 +118,8 @@ function App() {
 
             />
 
+            {/* <Route path="/student/offers" element={<StudentOffers />} /> */}
+
         </Route>
 
             {/* Recruiter routs */}
@@ -138,20 +141,22 @@ function App() {
                     element={<RecruiterPlacementDrives />}
                 />
 
-                <Route
-                    path="applications"
-                    element={<RecruiterApplications />}
-                />
 
                 <Route
                     path="interviews"
                     element={<RecruiterInterviews />}
                 />
 
+
                 <Route
-                    path="students"
-                    element={<RecruiterStudents />}
+
+                    path="/recruiter/applications"
+
+                    element={<RecruiterApplications/>}
+
                 />
+
+                <Route path="/recruiter/offers" element={<RecruiterOffers />} />
 
             </Route>
 

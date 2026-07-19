@@ -114,15 +114,39 @@ public class SecurityConfig {
                                 "/api/interviews/my")
                         .hasRole("STUDENT")
 
+                        .requestMatchers(HttpMethod.GET, "/api/offers/student")
+                        .hasRole("STUDENT")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/offers/*/accept")
+                        .hasRole("STUDENT")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/offers/*/reject")
+                        .hasRole("STUDENT")
+
                         // ==================================================
                         // RECRUITER
                         // ==================================================
 
+                       // Recruiter Dashboard (Temporary)
+                        .requestMatchers("/api/recruiter/dashboard/**")
+                        .permitAll()
+
+                        // Other Recruiter APIs
+                        .requestMatchers("/api/recruiter/applications/recent").permitAll()
                         .requestMatchers("/api/recruiter/**")
+                        .hasRole("RECRUITER") 
+                        
+                        .requestMatchers("/api/offers/recruiter/**")
                         .hasRole("RECRUITER")
 
-                        .requestMatchers("/api/recruiter/dashboard/**")
-                        .hasRole("RECRUITER")   
+                        .requestMatchers(HttpMethod.POST, "/api/offers")
+                        .hasRole("RECRUITER")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/offers/**")
+                        .hasRole("RECRUITER")
+
+                        .requestMatchers(HttpMethod.DELETE, "/api/offers/**")
+                        .hasRole("RECRUITER")
 
                         // ==================================================
                         // ADMIN DASHBOARD

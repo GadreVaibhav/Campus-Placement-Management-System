@@ -8,24 +8,24 @@ import {
 } from "react-icons/fa";
 
 import DashboardCard from "../../components/admin/DashboardCard";
-
+import { getRecruiterDashboard } from "../../services/recruiterDashboardService";
 import RecentApplications from "../../components/recruiter/RecentApplications";
 import UpcomingInterviews from "../../components/recruiter/UpcomingInterviews";
 import RecentPlacementDrives from "../../components/recruiter/RecentPlacementDrives";
-
+import UpcomingPlacementDrives from "../../components/recruiter/UpcomingPlacementDrives";
 function RecruiterDashboard() {
 
     const [dashboard, setDashboard] = useState({
 
-        totalDrives: 0,
+    totalDrives: 0,
 
-        activeJobs: 0,
+    activeDrives: 0,
 
-        totalApplications: 0,
+    totalApplications: 0,
 
-        totalInterviews: 0
+    scheduledInterviews: 0
 
-    });
+});
 
     useEffect(() => {
 
@@ -33,19 +33,23 @@ function RecruiterDashboard() {
 
     }, []);
 
-    const loadDashboard = async () => {
+   const loadDashboard = async () => {
 
-        /*
-            Backend API will be connected here later.
+    try {
 
-            Example:
+        const data = await getRecruiterDashboard();
 
-            const response = await getRecruiterDashboard();
+        console.log(data);
 
-            setDashboard(response.data);
-        */
+        setDashboard(data);
 
-    };
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+};
 
     return (
 
@@ -67,8 +71,8 @@ function RecruiterDashboard() {
                 />
 
                 <DashboardCard
-                    title="Active Jobs"
-                    value={dashboard.activeJobs}
+                    title="Active Drives"
+                    value={dashboard.activeDrives}
                     icon={<FaBriefcase />}
                     color="#198754"
                 />
@@ -82,7 +86,7 @@ function RecruiterDashboard() {
 
                 <DashboardCard
                     title="Interviews"
-                    value={dashboard.totalInterviews}
+                    value={dashboard.scheduledInterviews}
                     icon={<FaCalendarCheck />}
                     color="#dc3545"
                 />
@@ -94,6 +98,9 @@ function RecruiterDashboard() {
             <UpcomingInterviews />
 
             <RecentPlacementDrives />
+
+            <UpcomingPlacementDrives />
+            
 
         </>
 

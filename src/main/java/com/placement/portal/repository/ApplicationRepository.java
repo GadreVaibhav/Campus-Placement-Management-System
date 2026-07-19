@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
+import com.placement.portal.entity.Recruiter;
 import com.placement.portal.entity.Application;
 import com.placement.portal.entity.Job;
 import com.placement.portal.entity.Student;
@@ -27,5 +27,8 @@ public interface ApplicationRepository
 
     // NEW
     List<Application> findTop5ByStudentOrderByAppliedAtDesc(Student student);
+
+    List<Application> findTop5ByOrderByAppliedAtDesc();
+    List<Application> findByJobRecruiter(Recruiter recruiter);
 
 }

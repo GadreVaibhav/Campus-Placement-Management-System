@@ -21,4 +21,6 @@ public interface InterviewRepository
 
      List<Interview> findByApplicationStudent(Student student);
 
+     List<Interview> findTop5ByOrderByInterviewTimeAsc();
+
 }

@@ -82,11 +82,11 @@ function RecruiterSidebar() {
                 </NavLink>
 
                 <NavLink
-                    to="/recruiter/students"
+                    to="/recruiter/offers"
                     className="student-link"
                 >
                     <FaUserGraduate />
-                    <span>Students</span>
+                    <span>Offers</span>
                 </NavLink>
 
             </nav>

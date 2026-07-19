@@ -3,7 +3,7 @@ package com.placement.portal.controller;
 import jakarta.validation.Valid;
 
 import java.util.List;
-
+import org.springframework.security.core.Authentication;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,18 +30,24 @@ public class PlacementDriveController {
     // Create Placement Drive
     // ==========================================
 
-    @PostMapping
-    public ResponseEntity<PlacementDriveResponseDTO> createPlacementDrive(
+   @PostMapping
+public ResponseEntity<PlacementDriveResponseDTO> createPlacementDrive(
 
-            @Valid
-            @RequestBody PlacementDriveRequestDTO requestDTO) {
+        @Valid
+        @RequestBody PlacementDriveRequestDTO requestDTO,
 
-        return new ResponseEntity<>(
+        Authentication authentication) {
 
-                placementDriveService.createPlacementDrive(requestDTO),
+    return new ResponseEntity<>(
 
-                HttpStatus.CREATED);
-    }
+            placementDriveService.createPlacementDrive(
+
+                    requestDTO,
+
+                    authentication.getName()),
+
+            HttpStatus.CREATED);
+}
 
     // ==========================================
     // Update Placement Drive

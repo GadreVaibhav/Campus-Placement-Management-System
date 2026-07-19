@@ -9,8 +9,13 @@ import org.springframework.stereotype.Repository;
 import com.placement.portal.entity.PlacementDrive;
 
 @Repository
-public interface PlacementDriveRepository extends
-        JpaRepository<PlacementDrive, Long>,
+public interface PlacementDriveRepository
+        extends JpaRepository<PlacementDrive, Long>,
         JpaSpecificationExecutor<PlacementDrive> {
-                List<PlacementDrive> findByStatusIgnoreCase(String status);
+
+    List<PlacementDrive> findByStatusIgnoreCase(String status);
+
+    long countByStatusIgnoreCase(String status);
+
+    List<PlacementDrive> findTop5ByOrderByDriveDateDesc();
 }

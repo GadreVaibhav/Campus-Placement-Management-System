@@ -9,9 +9,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-
+import com.placement.portal.repository.StudentApplicationRepository;
 import org.springframework.stereotype.Service;
-
+import com.placement.portal.entity.Recruiter;
+import com.placement.portal.repository.RecruiterRepository;
 import com.placement.portal.dto.PlacementDriveRequestDTO;
 import com.placement.portal.dto.PlacementDriveResponseDTO;
 import com.placement.portal.entity.Company;
@@ -33,57 +34,67 @@ public class PlacementDriveServiceImpl
     private final PlacementDriveRepository placementDriveRepository;
 
     private final CompanyRepository companyRepository;
+    private final RecruiterRepository recruiterRepository;
+    private final StudentApplicationRepository studentApplicationRepository;
 
-    public PlacementDriveServiceImpl(
-            PlacementDriveRepository placementDriveRepository,
-            CompanyRepository companyRepository) {
+ public PlacementDriveServiceImpl(
 
-        this.placementDriveRepository = placementDriveRepository;
-        this.companyRepository = companyRepository;
-    }
+        PlacementDriveRepository placementDriveRepository,
+
+        CompanyRepository companyRepository,
+
+        RecruiterRepository recruiterRepository,
+
+        StudentApplicationRepository studentApplicationRepository) {
+    this.placementDriveRepository = placementDriveRepository;
+
+    this.companyRepository = companyRepository;
+
+    this.recruiterRepository = recruiterRepository;
+
+    this.studentApplicationRepository = studentApplicationRepository;
+}
 
     // ==========================================
     // Create Placement Drive
     // ==========================================
 
     @Override
-    public PlacementDriveResponseDTO createPlacementDrive(
-            PlacementDriveRequestDTO requestDTO) {
+        public PlacementDriveResponseDTO createPlacementDrive(
 
-        logger.info("Creating placement drive for company ID: {}",
-                requestDTO.getCompanyId());
+                PlacementDriveRequestDTO requestDTO,
 
-        Company company = companyRepository.findById(
-                requestDTO.getCompanyId())
-                .orElseThrow(() -> {
+                String recruiterEmail) {
+                logger.info("Creating placement drive for recruiter {}", recruiterEmail);
 
-                    logger.error("Company not found with ID: {}",
-                            requestDTO.getCompanyId());
 
-                    return new CompanyNotFoundException(
-                            "Company not found with ID: "
-                                    + requestDTO.getCompanyId());
-                });
+                PlacementDrive drive = new PlacementDrive();
 
-        PlacementDrive drive = new PlacementDrive();
+                Recruiter recruiter = recruiterRepository
 
-        drive.setCompany(company);
-        drive.setJobRole(requestDTO.getJobRole());
-        drive.setPackageOffered(requestDTO.getPackageOffered());
-        drive.setMinimumCgpa(requestDTO.getMinimumCgpa());
-        drive.setDriveDate(requestDTO.getDriveDate());
-        drive.setRegistrationDeadline(
-                requestDTO.getRegistrationDeadline());
-        drive.setStatus(requestDTO.getStatus());
+                .findByEmail(recruiterEmail)
 
-        PlacementDrive savedDrive =
-                placementDriveRepository.save(drive);
+                .orElseThrow(() ->
 
-        logger.info(
-                "Placement Drive created successfully. ID: {}",
-                savedDrive.getId());
+                        new RuntimeException("Recruiter not found"));
 
-        return PlacementDriveMapper.toResponseDTO(savedDrive);
+                drive.setCompany(recruiter.getCompany());
+                drive.setJobRole(requestDTO.getJobRole());
+                drive.setPackageOffered(requestDTO.getPackageOffered());
+                drive.setMinimumCgpa(requestDTO.getMinimumCgpa());
+                drive.setDriveDate(requestDTO.getDriveDate());
+                drive.setRegistrationDeadline(
+                        requestDTO.getRegistrationDeadline());
+                drive.setStatus(requestDTO.getStatus());
+
+                PlacementDrive savedDrive =
+                        placementDriveRepository.save(drive);
+
+                logger.info(
+                        "Placement Drive created successfully. ID: {}",
+                        savedDrive.getId());
+
+                return PlacementDriveMapper.toResponseDTO(savedDrive);
     }
 
     // ==========================================
@@ -106,19 +117,7 @@ public class PlacementDriveServiceImpl
                             "Placement Drive not found with ID: " + driveId);
                 });
 
-        Company company = companyRepository.findById(
-                requestDTO.getCompanyId())
-                .orElseThrow(() -> {
-
-                    logger.error("Company not found with ID: {}",
-                            requestDTO.getCompanyId());
-
-                    return new CompanyNotFoundException(
-                            "Company not found with ID: "
-                                    + requestDTO.getCompanyId());
-                });
-
-        drive.setCompany(company);
+       
         drive.setJobRole(requestDTO.getJobRole());
         drive.setPackageOffered(requestDTO.getPackageOffered());
         drive.setMinimumCgpa(requestDTO.getMinimumCgpa());
@@ -224,13 +223,19 @@ public void deletePlacementDrive(Long driveId) {
     logger.info("Deleting placement drive ID: {}", driveId);
 
     PlacementDrive drive = placementDriveRepository.findById(driveId)
-            .orElseThrow(() -> {
+            .orElseThrow(() ->
 
-                logger.error("Placement Drive not found with ID: {}", driveId);
+                    new PlacementDriveNotFoundException(
+                            "Placement Drive not found with ID: " + driveId));
 
-                return new PlacementDriveNotFoundException(
-                        "Placement Drive not found with ID: " + driveId);
-            });
+    long applications =
+            studentApplicationRepository.countByPlacementDrive_Id(driveId);
+
+    if (applications > 0) {
+
+        throw new RuntimeException(
+                "This placement drive has student applications. Please mark it as CANCELLED instead.");
+    }
 
     placementDriveRepository.delete(drive);
 

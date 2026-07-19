@@ -41,4 +41,8 @@ public interface StudentApplicationRepository
 long countByStudentAndStatus(
         Student student,
         com.placement.portal.entity.ApplicationStatus status);
+
+        void deleteByPlacementDrive_Id(Long driveId);
+
+        long countByPlacementDrive_Id(Long driveId);
 }

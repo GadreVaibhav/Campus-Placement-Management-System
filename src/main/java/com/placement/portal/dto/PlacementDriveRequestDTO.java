@@ -8,8 +8,7 @@ import jakarta.validation.constraints.Positive;
 
 public class PlacementDriveRequestDTO {
 
-    @NotNull
-    private Long companyId;
+    
 
     @NotNull
     private String jobRole;
@@ -32,13 +31,7 @@ public class PlacementDriveRequestDTO {
     public PlacementDriveRequestDTO() {
     }
 
-    public Long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
-    }
+   
 
     public String getJobRole() {
         return jobRole;

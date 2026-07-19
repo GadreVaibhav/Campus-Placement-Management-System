@@ -13,8 +13,11 @@ public interface PlacementDriveService {
     // Create Placement Drive
     // ==========================================
 
-    PlacementDriveResponseDTO createPlacementDrive(
-            PlacementDriveRequestDTO requestDTO);
+   PlacementDriveResponseDTO createPlacementDrive(
+
+        PlacementDriveRequestDTO requestDTO,
+
+        String recruiterEmail);;
 
     // ==========================================
     // Update Placement Drive

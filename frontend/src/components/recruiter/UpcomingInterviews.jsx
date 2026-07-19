@@ -1,4 +1,29 @@
+import { useEffect, useState } from "react";
+import { getUpcomingInterviews } from "../../services/recruiterInterviewService";
+
 function UpcomingInterviews() {
+
+    const [interviews, setInterviews] = useState([]);
+
+    useEffect(() => {
+        loadInterviews();
+    }, []);
+
+    const loadInterviews = async () => {
+
+        try {
+
+            const data = await getUpcomingInterviews();
+
+            setInterviews(data);
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
 
     return (
 
@@ -16,11 +41,49 @@ function UpcomingInterviews() {
 
             <div className="card-body">
 
-                <p className="text-muted">
+                <table className="table table-hover">
 
-                    Upcoming interviews will appear here.
+                    <thead>
 
-                </p>
+                        <tr>
+
+                            <th>Student</th>
+
+                            <th>Company</th>
+
+                            <th>Job</th>
+
+                            <th>Date & Time</th>
+
+                            <th>Mode</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {interviews.map((item) => (
+
+                            <tr key={item.interviewId}>
+
+                                <td>{item.studentName}</td>
+
+                                <td>{item.companyName}</td>
+
+                                <td>{item.jobTitle}</td>
+
+                                <td>{item.interviewTime}</td>
+
+                                <td>{item.interviewMode}</td>
+
+                            </tr>
+
+                        ))}
+
+                    </tbody>
+
+                </table>
 
             </div>
 

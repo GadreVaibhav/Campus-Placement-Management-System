@@ -88,6 +88,14 @@ function StudentSidebar() {
                     <span>Interviews</span>
                 </NavLink>
 
+                <NavLink
+                    to="/student/offers"
+                    className="student-link"
+                >
+                    <FaCalendarCheck />
+                    <span>My Offers</span>
+                </NavLink>
+
              
 
             </nav>

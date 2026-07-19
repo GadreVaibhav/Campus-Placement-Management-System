@@ -1,4 +1,29 @@
+import { useEffect, useState } from "react";
+import { getRecentPlacementDrives } from "../../services/recruiterPlacementDriveService";
+
 function RecentPlacementDrives() {
+
+    const [drives, setDrives] = useState([]);
+
+    useEffect(() => {
+        loadDrives();
+    }, []);
+
+    const loadDrives = async () => {
+
+        try {
+
+            const data = await getRecentPlacementDrives();
+
+            setDrives(data);
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
 
     return (
 
@@ -16,11 +41,45 @@ function RecentPlacementDrives() {
 
             <div className="card-body">
 
-                <p className="text-muted">
+                <table className="table table-hover">
 
-                    Placement drives will appear here.
+                    <thead>
 
-                </p>
+                        <tr>
+
+                            <th>Company</th>
+
+                            <th>Job Role</th>
+
+                            <th>Drive Date</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {drives.map((drive) => (
+
+                            <tr key={drive.driveId}>
+
+                                <td>{drive.companyName}</td>
+
+                                <td>{drive.jobRole}</td>
+
+                                <td>{drive.driveDate}</td>
+
+                                <td>{drive.status}</td>
+
+                            </tr>
+
+                        ))}
+
+                    </tbody>
+
+                </table>
 
             </div>
 
