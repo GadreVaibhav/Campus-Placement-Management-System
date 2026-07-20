@@ -1,1 +1,175 @@
-@import "../student/student.css";
+/* @import "../student/student.css"; */
+
+.student-sidebar {
+
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 260px;
+    height: 100vh;
+
+    background: linear-gradient(180deg,#1f3b73,#294b8e);
+
+    display: flex;
+    flex-direction: column;
+
+    color: white;
+
+    box-shadow: 4px 0 15px rgba(0,0,0,.15);
+
+    z-index: 1000;
+}
+
+/* ================= HEADER ================= */
+
+.student-sidebar-header {
+
+    padding: 35px 20px;
+
+    text-align: center;
+
+    border-bottom: 1px solid rgba(255,255,255,.12);
+
+    flex-shrink: 0;
+}
+
+.student-sidebar-header svg{
+
+    font-size:42px;
+
+    margin-bottom:12px;
+}
+
+.student-sidebar-header h3{
+
+    font-size:18px;
+
+    font-weight:700;
+
+    margin-bottom:4px;
+}
+
+.student-sidebar-header p{
+
+    color:#d7d7d7;
+
+    margin:0;
+
+    font-size:14px;
+}
+
+/* ================= MENU ================= */
+
+.student-menu{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:18px 12px;
+}
+
+/* Hide scrollbar */
+
+.student-menu::-webkit-scrollbar{
+
+    width:6px;
+}
+
+.student-menu::-webkit-scrollbar-thumb{
+
+    background:rgba(255,255,255,.25);
+
+    border-radius:20px;
+}
+
+/* ================= LINKS ================= */
+
+.student-link{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:14px 16px;
+
+    border-radius:14px;
+
+    margin-bottom:10px;
+
+    transition:.25s;
+
+    font-weight:500;
+}
+
+.student-link svg{
+
+    font-size:18px;
+}
+
+.student-link:hover{
+
+    background:rgba(255,255,255,.15);
+
+    color:white;
+
+    transform:translateX(5px);
+}
+
+.student-link.active{
+
+    background:white;
+
+    color:#294b8e;
+
+    font-weight:700;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+
+/* ================= LOGOUT ================= */
+
+.student-logout{
+
+    margin:18px;
+
+    padding:13px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#dc3545;
+
+    color:white;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    transition:.3s;
+
+    flex-shrink:0;
+}
+
+.student-logout:hover{
+
+    background:#bb2d3b;
+
+    transform:translateY(-2px);
+}

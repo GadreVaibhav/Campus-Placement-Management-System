@@ -24,12 +24,14 @@ public class RecruiterApplicationController {
         this.recruiterApplicationService = recruiterApplicationService;
     }
 
-    @GetMapping("/applications/recent")
-    public List<RecentApplicationDTO> getRecentApplications() {
+  @GetMapping("/applications/recent")
+public List<RecentApplicationDTO> getRecentApplications(
+        Authentication authentication) {
 
-        return recruiterApplicationService.getRecentApplications();
+    return recruiterApplicationService.getRecentApplications(
+            authentication.getName());
 
-    }
+}
     @GetMapping("/applications")
 public List<RecruiterApplicationResponseDTO> getRecruiterApplications(
 

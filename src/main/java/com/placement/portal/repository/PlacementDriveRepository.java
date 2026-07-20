@@ -17,11 +17,18 @@ public interface PlacementDriveRepository
 
     List<PlacementDrive> findByStatusIgnoreCase(String status);
 
-    long countByStatusIgnoreCase(String status);
+//     long countByStatusIgnoreCase(String status);
 
-    List<PlacementDrive> findTop5ByOrderByDriveDateDesc();
+//     List<PlacementDrive> findTop5ByOrderByDriveDateDesc();
 
-   Optional<PlacementDrive> findFirstByCompanyAndJobRole(
-        Company company,
-        String jobRole);
+    Optional<PlacementDrive> findFirstByCompanyAndJobRole(
+            Company company,
+            String jobRole);
+
+    // NEW
+    long countByCompany(Company company);
+
+    List<PlacementDrive> findByCompanyOrderByDriveDateDesc(
+            Company company);
+
 }

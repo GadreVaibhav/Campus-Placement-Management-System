@@ -1,6 +1,7 @@
+import { Outlet } from "react-router-dom";
+
 import AdminSidebar from "./AdminSidebar";
 import AdminNavbar from "./AdminNavbar";
-import { Outlet } from "react-router-dom";
 
 function AdminLayout() {
 
@@ -13,16 +14,20 @@ function AdminLayout() {
             <div
                 className="flex-grow-1"
                 style={{
-                    marginLeft: "260px",
-                    height: "100vh",
-                    overflowY: "auto",
-                    background: "#f5f7fb"
+                    background: "#f5f7fb",
+                    minHeight: "100vh",
+                    marginLeft: "260px"
                 }}
             >
 
                 <AdminNavbar />
 
-                <div className="p-4">
+                <div
+                    className="p-4"
+                    style={{
+                        marginTop: "90px"
+                    }}
+                >
 
                     <Outlet />
 

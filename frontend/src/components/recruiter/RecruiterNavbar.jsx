@@ -7,7 +7,13 @@ function RecruiterNavbar() {
         <div
             className="d-flex justify-content-between align-items-center px-4 py-3 bg-white shadow-sm"
             style={{
-                borderBottom: "1px solid #e5e7eb"
+                borderBottom: "1px solid #e5e7eb",
+                position: "fixed",
+                top: 0,
+                left: "260px",   // Width of your sidebar 250px
+                right: 0,
+                zIndex: 1000,
+                height: "80px"
             }}
         >
 

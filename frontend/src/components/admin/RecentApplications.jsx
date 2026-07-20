@@ -59,44 +59,45 @@ function RecentApplications() {
 
                     </thead>
 
-                    <tbody>
+                   <tbody>
 
-                    {
+{applications.map(app => (
 
-                        applications.map(app => (
+<tr key={app.id}>
 
-                            <tr key={app.id}>
+    <td>{app.studentName}</td>
 
-                                <td>{app.studentName}</td>
+    <td>{app.companyName}</td>
 
-                                <td>{app.companyName}</td>
+    <td>{app.jobTitle}</td>
 
-                                <td>{app.jobRole}</td>
+    <td>
 
-                                <td>
+        <span className="badge bg-success">
 
-                                    <span className="badge bg-success">
+            {app.status}
 
-                                        {app.status}
+        </span>
 
-                                    </span>
+    </td>
 
-                                </td>
+    <td>
 
-                                <td>
+        {app.appliedAt
+            ? new Date(app.appliedAt).toLocaleDateString("en-IN", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric"
+              })
+            : "-"}
 
-                                    {new Date(app.applicationDate)
-                                        .toLocaleDateString()}
+    </td>
 
-                                </td>
+</tr>
 
-                            </tr>
+))}
 
-                        ))
-
-                    }
-
-                    </tbody>
+</tbody>
 
                 </table>
 

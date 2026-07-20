@@ -2,8 +2,7 @@ package com.placement.portal.repository;
 
 import java.util.List;
 import java.util.Optional;
-import org.springframework.data.jpa.repository.Query;
-import com.placement.portal.dto.ApplicationStatusCountDTO;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.domain.Pageable;
@@ -27,15 +26,7 @@ public interface StudentApplicationRepository
     List<StudentApplication> findAllByOrderByApplicationDateDesc(
             Pageable pageable);
 
-        @Query("""
-        SELECT new com.placement.portal.dto.ApplicationStatusCountDTO(
-        a.status,
-        COUNT(a)
-        )
-        FROM StudentApplication a
-        GROUP BY a.status
-        """)
-        List<ApplicationStatusCountDTO> countApplicationsByStatus();
+      
         long countByStudent(Student student);
 
 long countByStudentAndStatus(

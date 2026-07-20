@@ -1,3 +1,5 @@
+import { NavLink, useNavigate } from "react-router-dom";
+
 import {
     FaTachometerAlt,
     FaUserGraduate,
@@ -5,140 +7,114 @@ import {
     FaUserTie,
     FaBriefcase,
     FaClipboardList,
-    FaCalendarAlt,
+    FaCalendarCheck,
     FaSignOutAlt,
+    FaUniversity,
     FaSuitcase
 } from "react-icons/fa";
 
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import "../recruiter/recruiter.css";
 
 function AdminSidebar() {
 
-    const location = useLocation();
     const navigate = useNavigate();
 
-    const logout = () => {
-    localStorage.clear();
-    navigate("/");
-};
+    const handleLogout = () => {
 
-    const menu = [
+        localStorage.clear();
 
-        {
-            title: "Dashboard",
-            icon: <FaTachometerAlt />,
-            path: "/admin/dashboard"
-        },
+        navigate("/");
 
-        {
-            title: "Students",
-            icon: <FaUserGraduate />,
-            path: "/admin/students"
-        },
-
-        {
-            title: "Companies",
-            icon: <FaBuilding />,
-            path: "/admin/companies"
-        },
-
-        {
-            title: "Recruiters",
-            icon: <FaUserTie />,
-            path: "/admin/recruiters"
-        },
-
-        {
-            title: "Jobs",
-            icon: <FaSuitcase />,
-            path: "/admin/jobs"
-        },
-        
-        {
-            title: "Placement Drives",
-            icon: <FaBriefcase />,
-            path: "/admin/drives"
-        },
-
-        {
-            title: "Applications",
-            icon: <FaClipboardList />,
-            path: "/admin/applications"
-        },
-
-        {
-            title: "Interviews",
-            icon: <FaCalendarAlt />,
-            path: "/admin/interviews"
-        }
-
-    ];
+    };
 
     return (
 
-       <div
-    className="bg-dark text-white"
-    style={{
-        width: "260px",
-        height: "100vh",
-        position: "fixed",
-        left: 0,
-        top: 0,
-        overflowY: "auto",
-        zIndex: 1000
-    }}
->
+        <div className="student-sidebar">
 
-            <h3 className="text-center py-4">
-                Placement Portal
-            </h3>
+            <div className="student-sidebar-header">
 
-            <hr />
+                <FaUniversity />
 
-            {
+                <h3>Placement Portal</h3>
 
-                menu.map((item) => (
+                <p>Admin Panel</p>
 
-                    <Link
+            </div>
 
-                        key={item.title}
+            <nav className="student-menu">
 
-                        to={item.path}
+                <NavLink
+                    to="/admin/dashboard"
+                    className="student-link"
+                >
+                    <FaTachometerAlt />
+                    <span>Dashboard</span>
+                </NavLink>
 
-                        className={`d-flex align-items-center text-decoration-none p-3 ${
-                            location.pathname === item.path
-                                ? "bg-primary text-white"
-                                : "text-white"
-                        }`}
+                <NavLink
+                    to="/admin/students"
+                    className="student-link"
+                >
+                    <FaUserGraduate />
+                    <span>Students</span>
+                </NavLink>
 
-                    >
+                <NavLink
+                    to="/admin/companies"
+                    className="student-link"
+                >
+                    <FaBuilding />
+                    <span>Companies</span>
+                </NavLink>
 
-                        <span className="me-3">
+                <NavLink
+                    to="/admin/recruiters"
+                    className="student-link"
+                >
+                    <FaUserTie />
+                    <span>Recruiters</span>
+                </NavLink>
 
-                            {item.icon}
+                <NavLink
+                    to="/admin/jobs"
+                    className="student-link"
+                >
+                    <FaSuitcase />
+                    <span>Jobs</span>
+                </NavLink>
 
-                        </span>
+                <NavLink
+                    to="/admin/drives"
+                    className="student-link"
+                >
+                    <FaBriefcase />
+                    <span>Placement Drives</span>
+                </NavLink>
 
-                        {item.title}
+                <NavLink
+                    to="/admin/applications"
+                    className="student-link"
+                >
+                    <FaClipboardList />
+                    <span>Applications</span>
+                </NavLink>
 
-                    </Link>
+                <NavLink
+                    to="/admin/interviews"
+                    className="student-link"
+                >
+                    <FaCalendarCheck />
+                    <span>Interviews</span>
+                </NavLink>
 
-                ))
-
-            }
+            </nav>
 
             <button
-
-                onClick={logout}
-
-                className="btn btn-danger m-3 w-75"
-
+                className="student-logout"
+                onClick={handleLogout}
             >
-
                 <FaSignOutAlt />
-
-                {" "}Logout
-
+                Logout
             </button>
 
         </div>

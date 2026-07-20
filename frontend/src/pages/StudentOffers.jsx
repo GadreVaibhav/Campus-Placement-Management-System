@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-
 import {
     Container,
     Card,
     Table,
     Button,
-    Spinner
+    Spinner,
+    Badge
 } from "react-bootstrap";
 
 import {
@@ -17,13 +17,10 @@ import {
 function StudentOffers() {
 
     const [offers, setOffers] = useState([]);
-
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-
         loadOffers();
-
     }, []);
 
     const loadOffers = async () => {
@@ -34,17 +31,15 @@ function StudentOffers() {
 
             const data = await getStudentOffers();
 
+            console.log(data);
+
             setOffers(data);
 
-        }
-
-        catch (error) {
+        } catch (error) {
 
             console.error(error);
 
-        }
-
-        finally {
+        } finally {
 
             setLoading(false);
 
@@ -62,9 +57,7 @@ function StudentOffers() {
 
             loadOffers();
 
-        }
-
-        catch (error) {
+        } catch (error) {
 
             console.error(error);
 
@@ -82,9 +75,7 @@ function StudentOffers() {
 
             loadOffers();
 
-        }
-
-        catch (error) {
+        } catch (error) {
 
             console.error(error);
 
@@ -96,11 +87,11 @@ function StudentOffers() {
 
         <Container className="mt-4">
 
-            <Card>
+            <Card className="shadow-sm">
 
                 <Card.Header>
 
-                    <h4>
+                    <h4 className="mb-0">
 
                         My Job Offers
 
@@ -110,169 +101,155 @@ function StudentOffers() {
 
                 <Card.Body>
 
-                    {
+                    {loading ? (
 
-                        loading ?
+                        <div className="text-center">
 
-                            <div className="text-center">
+                            <Spinner animation="border" />
 
-                                <Spinner animation="border"/>
+                        </div>
 
-                            </div>
+                    ) : (
 
-                            :
+                        <Table bordered hover responsive>
 
-                            <Table
-                                bordered
-                                hover
-                                responsive
-                            >
+                            <thead>
 
-                                <thead>
+                                <tr>
+
+                                    <th>Company</th>
+
+                                    <th>Job Role</th>
+
+                                    <th>Package</th>
+
+                                    <th>Location</th>
+
+                                    <th>Joining Date</th>
+
+                                    <th>Status</th>
+
+                                    <th>Action</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                {offers.length === 0 ? (
 
                                     <tr>
 
-                                        <th>Company</th>
-
-                                        <th>Job Role</th>
-
-                                        <th>Package</th>
-
-                                        <th>Location</th>
-
-                                        <th>Joining Date</th>
-
-                                        <th>Status</th>
-
-                                        <th>Action</th>
+                                        <td
+                                            colSpan="7"
+                                            className="text-center"
+                                        >
+                                            No Offers Found
+                                        </td>
 
                                     </tr>
 
-                                </thead>
+                                ) : (
 
-                                <tbody>
+                                    offers.map((offer) => (
 
-                                    {
+                                        <tr key={offer.offerId}>
 
-                                        offers.map(offer => (
+                                            <td>
 
-                                            <tr
-                                                key={offer.offerId}
-                                            >
+                                                {offer.companyName}
 
-                                                <td>
+                                            </td>
 
-                                                    {offer.companyName}
+                                            <td>
 
-                                                </td>
+                                                {offer.jobTitle}
 
-                                                <td>
+                                            </td>
 
-                                                    {offer.jobTitle}
+                                            <td>
 
-                                                </td>
+                                                {offer.packageOffered} LPA
 
-                                                <td>
+                                            </td>
 
-                                                    {offer.packageOffered} LPA
+                                            <td>
 
-                                                </td>
+                                                {offer.location}
 
-                                                <td>
+                                            </td>
 
-                                                    {offer.location}
+                                            <td>
 
-                                                </td>
+                                                {offer.joiningDate}
 
-                                                <td>
+                                            </td>
 
-                                                    {offer.joiningDate}
+                                            <td>
 
-                                                </td>
-
-                                                <td>
-
-                                                    {offer.status}
-
-                                                </td>
-
-                                                <td>
-
-                                                    {
-
-                                                        offer.status === "PENDING"
-
-                                                        ?
-
-                                                        <>
-
-                                                            <Button
-
-                                                                size="sm"
-
-                                                                className="me-2"
-
-                                                                variant="success"
-
-                                                                onClick={() =>
-
-                                                                    handleAccept(
-
-                                                                        offer.offerId
-
-                                                                    )
-
-                                                                }
-
-                                                            >
-
-                                                                Accept
-
-                                                            </Button>
-
-                                                            <Button
-
-                                                                size="sm"
-
-                                                                variant="danger"
-
-                                                                onClick={() =>
-
-                                                                    handleReject(
-
-                                                                        offer.offerId
-
-                                                                    )
-
-                                                                }
-
-                                                            >
-
-                                                                Reject
-
-                                                            </Button>
-
-                                                        </>
-
-                                                        :
-
-                                                        "-"
-
+                                                <Badge
+                                                    bg={
+                                                        offer.status === "ACCEPTED"
+                                                            ? "success"
+                                                            : offer.status === "REJECTED"
+                                                            ? "danger"
+                                                            : "warning"
                                                     }
+                                                >
+                                                    {offer.status}
+                                                </Badge>
 
-                                                </td>
+                                            </td>
 
-                                            </tr>
+                                            <td>
+                                                {offer.status?.toUpperCase() === "OFFERED" ? (
 
-                                        ))
+                                                    <>
+                                                        <Button
+                                                            variant="success"
+                                                            size="sm"
+                                                            className="me-2"
+                                                            onClick={() => handleAccept(offer.offerId)}
+                                                        >
+                                                            Accept
+                                                        </Button>
 
-                                    }
+                                                        <Button
+                                                            variant="danger"
+                                                            size="sm"
+                                                            onClick={() => handleReject(offer.offerId)}
+                                                        >
+                                                            Reject
+                                                        </Button>
+                                                    </>
 
-                                </tbody>
+                                                ) : offer.status?.toUpperCase() === "ACCEPTED" ? (
 
-                            </Table>
+                                                    <span className="badge bg-success">
+                                                        ✓ Accepted
+                                                    </span>
 
-                    }
+                                                ) : (
+
+                                                    <span className="badge bg-danger">
+                                                        ✕ Rejected
+                                                    </span>
+
+                                                )}
+                                            </td>
+
+                                        </tr>
+
+                                    ))
+
+                                )}
+
+                            </tbody>
+
+                        </Table>
+
+                    )}
 
                 </Card.Body>
 

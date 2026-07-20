@@ -13,9 +13,7 @@ import com.placement.portal.entity.Student;
 public interface ApplicationRepository
         extends JpaRepository<Application, Long> {
 
-    boolean existsByStudentAndJob(
-            Student student,
-            Job job);
+    boolean existsByStudentAndJob(Student student, Job job);
 
     List<Application> findByStudent(Student student);
 
@@ -25,10 +23,17 @@ public interface ApplicationRepository
             Student student,
             Job job);
 
-    // NEW
     List<Application> findTop5ByStudentOrderByAppliedAtDesc(Student student);
 
     List<Application> findTop5ByOrderByAppliedAtDesc();
+
     List<Application> findByJobRecruiter(Recruiter recruiter);
-List<Application> findByJobCompanyId(Long companyId);
+
+    List<Application> findByJobCompanyId(Long companyId);
+
+    // ===========================
+    // Dashboard
+    // ===========================
+
+    long countByStatus(String status);
 }

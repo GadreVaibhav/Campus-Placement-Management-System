@@ -2,7 +2,7 @@ package com.placement.portal.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 public class RecruiterApplicationResponseDTO {
 
     private Long applicationId;
@@ -19,20 +19,22 @@ public class RecruiterApplicationResponseDTO {
 
     private String companyName;
 
-    private String status;
-
-    private LocalDateTime applicationDate;
+    private String status; 
 
     private Double packageOffered;
 
     private Double minimumCgpa;
+ @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+private LocalDate driveDate;
 
-    private java.time.LocalDate driveDate;
+@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+private LocalDate registrationDeadline;
 
-    private java.time.LocalDate registrationDeadline;
+@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
+private LocalDateTime applicationDate;
 
-    
 
+   
     // ==========================
     // Getters & Setters
     // ==========================

@@ -127,41 +127,50 @@ function App() {
 
             {/* Recruiter routs */}
             
-                <Route path="/recruiter" element={<RecruiterLayout />}>
+               <Route
+                    element={
+                        <ProtectedRoute allowedRole="RECRUITER">
+                            <RecruiterLayout />
+                        </ProtectedRoute>
+                    }
+                >
 
-                <Route
-                    path="dashboard"
-                    element={<RecruiterDashboard />}
-                />
+                    <Route
+                        path="/recruiter"
+                        element={<Navigate to="/recruiter/dashboard" replace />}
+                    />
 
-                <Route
-                    path="profile"
-                    element={<RecruiterProfile />}
-                />
+                    <Route
+                        path="/recruiter/dashboard"
+                        element={<RecruiterDashboard />}
+                    />
 
-                <Route
-                    path="drives"
-                    element={<RecruiterPlacementDrives />}
-                />
+                    <Route
+                        path="/recruiter/profile"
+                        element={<RecruiterProfile />}
+                    />
 
+                    <Route
+                        path="/recruiter/drives"
+                        element={<RecruiterPlacementDrives />}
+                    />
 
-                <Route
-                    path="interviews"
-                    element={<RecruiterInterviews />}
-                />
+                    <Route
+                        path="/recruiter/interviews"
+                        element={<RecruiterInterviews />}
+                    />
 
+                    <Route
+                        path="/recruiter/applications"
+                        element={<RecruiterApplications />}
+                    />
 
-                <Route
+                    <Route
+                        path="/recruiter/offers"
+                        element={<RecruiterOffers />}
+                    />
 
-                    path="/recruiter/applications"
-
-                    element={<RecruiterApplications/>}
-
-                />
-
-                <Route path="/recruiter/offers" element={<RecruiterOffers />} />
-
-            </Route>
+                </Route>
 
       
 

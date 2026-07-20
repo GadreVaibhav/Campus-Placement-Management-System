@@ -2,6 +2,8 @@ package com.placement.portal.dto;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ErrorResponse {
 
     private LocalDateTime timestamp;

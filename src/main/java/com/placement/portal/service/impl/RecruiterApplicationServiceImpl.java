@@ -1,13 +1,9 @@
 package com.placement.portal.service.impl;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Service;
-
 import com.placement.portal.dto.RecentApplicationDTO;
 import com.placement.portal.dto.RecruiterApplicationResponseDTO;
-import com.placement.portal.entity.Application;
 import com.placement.portal.entity.Recruiter;
 import com.placement.portal.repository.ApplicationRepository;
 import com.placement.portal.repository.RecruiterRepository;
@@ -32,33 +28,28 @@ public class RecruiterApplicationServiceImpl
     // Recent Applications
     // ==========================================
 
-    @Override
-    public List<RecentApplicationDTO> getRecentApplications() {
+   @Override
+public List<RecentApplicationDTO> getRecentApplications(
+        String recruiterEmail) {
 
-        List<Application> applications =
-                applicationRepository.findTop5ByOrderByAppliedAtDesc();
+    Recruiter recruiter = recruiterRepository
+            .findByEmail(recruiterEmail)
+            .orElseThrow(() ->
+                    new RuntimeException("Recruiter not found"));
 
-        return applications.stream()
-
-                .map(application ->
-
-                        new RecentApplicationDTO(
-
-                                application.getStudent().getName(),
-
-                                application.getJob()
-                                        .getCompany()
-                                        .getCompanyName(),
-
-                                application.getJob()
-                                        .getJobTitle(),
-
-                                application.getStatus()
-
-                        ))
-
-                .collect(Collectors.toList());
-    }
+    return applicationRepository
+            .findByJobCompanyId(recruiter.getCompany().getId())
+            .stream()
+            .sorted((a, b) -> b.getAppliedAt().compareTo(a.getAppliedAt()))
+            .limit(5)
+            .map(application ->
+                    new RecentApplicationDTO(
+                            application.getStudent().getName(),
+                            application.getJob().getCompany().getCompanyName(),
+                            application.getJob().getJobTitle(),
+                            application.getStatus()))
+            .toList();
+}
 
     // ==========================================
     // Recruiter Applications
@@ -113,7 +104,9 @@ public List<RecruiterApplicationResponseDTO> getRecruiterApplications(
                 dto.setMinimumCgpa(
                         Double.valueOf(application.getJob().getEligibilityCgpa()));
 
-                dto.setDriveDate(null);
+                // Use lastDate as Drive Date for now
+                dto.setDriveDate(
+                        application.getJob().getLastDate());
 
                 dto.setRegistrationDeadline(
                         application.getJob().getLastDate());

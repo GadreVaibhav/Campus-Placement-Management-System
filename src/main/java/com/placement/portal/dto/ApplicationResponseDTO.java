@@ -2,6 +2,8 @@ package com.placement.portal.dto;
 
 import java.time.LocalDateTime;
 
+
+
 public class ApplicationResponseDTO {
 
     private Long id;
@@ -15,6 +17,7 @@ public class ApplicationResponseDTO {
     private String companyName;
 
     private String status;
+
 
     private LocalDateTime appliedAt;
 

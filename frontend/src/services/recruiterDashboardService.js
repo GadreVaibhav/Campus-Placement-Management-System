@@ -1,8 +1,6 @@
-import axios from "axios";
-
-const API = "http://localhost:8082/api/recruiter/dashboard";
+import api from "../api/api";
 
 export const getRecruiterDashboard = async () => {
-    const response = await axios.get(API);
+    const response = await api.get("/recruiter/dashboard");
     return response.data;
 };

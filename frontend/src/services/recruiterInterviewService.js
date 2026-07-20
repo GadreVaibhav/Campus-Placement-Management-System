@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import api from "../api/api";
 const API = "http://localhost:8082/api/recruiter/interview-management";
 
 const getToken = () => localStorage.getItem("token");
@@ -83,12 +83,7 @@ export const getRecruiterApplications = async () => {
 };
 export const getUpcomingInterviews = async () => {
 
-    const response = await axios.get(
-
-        "http://localhost:8082/api/recruiter/interviews/upcoming"
-
-    );
+    const response = await api.get("/recruiter/interviews/upcoming");
 
     return response.data;
-
 };

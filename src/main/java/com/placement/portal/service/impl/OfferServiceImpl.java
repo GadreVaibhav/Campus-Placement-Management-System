@@ -77,9 +77,13 @@ public class OfferServiceImpl implements OfferService {
         offer.setJoiningDate(requestDTO.getJoiningDate());
         offer.setStatus("OFFERED");
 
-        Offer saved = offerRepository.save(offer);
+       Offer saved = offerRepository.save(offer);
 
-        return mapToDTO(saved);
+// Update application status
+application.setStatus("SELECTED");
+applicationRepository.save(application);
+
+return mapToDTO(saved);
     }
 
     // =====================================================
@@ -164,9 +168,14 @@ public class OfferServiceImpl implements OfferService {
         Offer offer = offerRepository.findById(offerId)
                 .orElseThrow(() -> new RuntimeException("Offer not found"));
 
-        offer.setStatus("ACCEPTED");
+       offer.setStatus("ACCEPTED");
 
-        return mapToDTO(offerRepository.save(offer));
+// keep application selected
+Application application = offer.getApplication();
+application.setStatus("SELECTED");
+applicationRepository.save(application);
+
+return mapToDTO(offerRepository.save(offer));
     }
 
     // =====================================================
@@ -181,52 +190,57 @@ public class OfferServiceImpl implements OfferService {
 
         offer.setStatus("REJECTED");
 
-        return mapToDTO(offerRepository.save(offer));
+       Application application = offer.getApplication();
+application.setStatus("REJECTED");
+applicationRepository.save(application);
+
+return mapToDTO(offerRepository.save(offer));
     }
 
     // =====================================================
     // DTO MAPPER
     // =====================================================
 
-    private OfferResponseDTO mapToDTO(Offer offer) {
+   private OfferResponseDTO mapToDTO(Offer offer) {
 
-        OfferResponseDTO dto = new OfferResponseDTO();
+    OfferResponseDTO dto = new OfferResponseDTO();
 
-        dto.setOfferId(offer.getId());
+    dto.setOfferId(offer.getId());
 
-        dto.setApplicationId(
-        offer.getApplication().getId());
+    dto.setApplicationId(
+            offer.getApplication().getId());
 
-       dto.setStudentName(
-        offer.getApplication()
-                .getStudent()
-                .getName());
+    dto.setStudentName(
+            offer.getApplication()
+                    .getStudent()
+                    .getName());
 
+    dto.setCompanyName(
+            offer.getApplication()
+                    .getJob()
+                    .getCompany()
+                    .getCompanyName());
 
-        offer.getApplication()
-        .getStudent();
+    dto.setJobTitle(
+            offer.getApplication()
+                    .getJob()
+                    .getJobTitle());
 
+    dto.setPackageOffered(
+            offer.getPackageOffered());
 
-       dto.setJobTitle(
-        offer.getApplication()
-                .getJob()
-                .getJobTitle());
+    dto.setLocation(
+            offer.getLocation());
 
-        dto.setPackageOffered(
-                offer.getPackageOffered());
+    dto.setJoiningDate(
+            offer.getJoiningDate());
 
-        dto.setLocation(
-                offer.getLocation());
+    dto.setStatus(
+            offer.getStatus());
 
-        dto.setJoiningDate(
-                offer.getJoiningDate());
+    dto.setCreatedAt(
+            offer.getCreatedAt());
 
-        dto.setStatus(
-                offer.getStatus());
-
-        dto.setCreatedAt(
-                offer.getCreatedAt());
-
-        return dto;
-    }
+    return dto;
+}
 }

@@ -4,26 +4,23 @@ import com.placement.portal.entity.ApplicationStatus;
 
 public class ApplicationStatusCountDTO {
 
-    private ApplicationStatus status;
+    private String status;
 
     private Long count;
 
     public ApplicationStatusCountDTO() {
     }
 
-    public ApplicationStatusCountDTO(
-            ApplicationStatus status,
-            Long count) {
-
+    public ApplicationStatusCountDTO(String status, Long count) {
         this.status = status;
         this.count = count;
     }
 
-    public ApplicationStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(ApplicationStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

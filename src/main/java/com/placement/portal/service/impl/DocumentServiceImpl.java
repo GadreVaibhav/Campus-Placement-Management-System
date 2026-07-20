@@ -147,14 +147,17 @@ public class DocumentServiceImpl implements DocumentService {
 
         document.setIsVerified(false);
 
-        Document savedDocument =
-                documentRepository.save(document);
+       Document savedDocument = documentRepository.save(document);
 
-        logger.info(
-                "Document uploaded successfully. ID: {}",
-                savedDocument.getId());
+System.out.println("========== DOCUMENT SAVED ==========");
+System.out.println("ID          : " + savedDocument.getId());
+System.out.println("Student ID  : " + savedDocument.getStudent().getStudentId());
+System.out.println("File Name   : " + savedDocument.getFileName());
+System.out.println("File Path   : " + savedDocument.getFilePath());
+System.out.println("Type        : " + savedDocument.getDocumentType());
+System.out.println("===================================");
 
-        return DocumentMapper.toResponseDTO(savedDocument);
+return DocumentMapper.toResponseDTO(savedDocument);
     }
         // ==========================================
     // Get All Documents of a Student

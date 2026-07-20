@@ -2,6 +2,8 @@ package com.placement.portal.dto;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -10,6 +12,7 @@ public class RecruiterInterviewRequestDTO {
     @NotNull
     private Long applicationId;
 
+   
     @NotNull
     private LocalDateTime interviewTime;
 

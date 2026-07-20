@@ -2,6 +2,8 @@ package com.placement.portal.dto;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Future;
@@ -33,6 +35,7 @@ public class JobRequestDTO {
 
     @NotNull(message = "Last date is required")
     @Future(message = "Last date must be in the future")
+  
     private LocalDate lastDate;
 
     @NotBlank(message = "Status is required")

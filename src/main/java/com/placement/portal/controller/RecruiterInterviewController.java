@@ -2,7 +2,9 @@ package com.placement.portal.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
 
 import com.placement.portal.dto.UpcomingInterviewDTO;
 import com.placement.portal.service.RecruiterInterviewService;
@@ -20,9 +22,17 @@ public class RecruiterInterviewController {
         this.recruiterInterviewService = recruiterInterviewService;
     }
 
-    @GetMapping
-    public List<UpcomingInterviewDTO> getUpcomingInterviews() {
+   @GetMapping("/upcoming")
+public ResponseEntity<List<UpcomingInterviewDTO>> getUpcomingInterviews(
+        Authentication authentication) {
 
-        return recruiterInterviewService.getUpcomingInterviews();
-    }
+    String recruiterEmail = authentication.getName();
+
+    return ResponseEntity.ok(
+
+            recruiterInterviewService.getUpcomingInterviews(
+                    recruiterEmail)
+
+    );
+}
 }

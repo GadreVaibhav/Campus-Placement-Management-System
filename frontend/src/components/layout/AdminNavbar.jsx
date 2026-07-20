@@ -1,46 +1,63 @@
-import { FaBell, FaUserCircle } from "react-icons/fa";
+import { FaUserTie } from "react-icons/fa";
 
 function AdminNavbar() {
 
-    const role = localStorage.getItem("role") || "ADMIN";
-
     return (
 
-        <nav className="navbar navbar-light bg-white shadow-sm px-4">
+        <div
+            className="d-flex justify-content-between align-items-center px-4 py-3 bg-white shadow-sm"
+            style={{
+                borderBottom: "1px solid #e5e7eb",
+                position: "fixed",
+                top: 0,
+                left: "260px",
+                right: 0,
+                zIndex: 1000,
+                height: "80px"
+            }}
+        >
 
             <div>
-                <h4 className="mb-0">
+
+                <h3
+                    className="fw-bold mb-0"
+                    style={{
+                        color: "#0d6efd"
+                    }}
+                >
                     Admin Dashboard
-                </h4>
+                </h3>
+
+                <small className="text-muted">
+                    Campus Placement Management System
+                </small>
+
             </div>
 
-            <div className="d-flex align-items-center">
+            <div
+                className="d-flex align-items-center gap-3"
+            >
 
-                <FaBell
-                    size={20}
-                    className="me-4 text-secondary"
-                />
-
-                <FaUserCircle
+                <FaUserTie
                     size={38}
-                    className="text-primary me-2"
+                    color="#0d6efd"
                 />
 
                 <div>
 
-                    <div className="fw-bold">
+                    <h6 className="mb-0 fw-bold">
                         Admin
-                    </div>
+                    </h6>
 
                     <small className="text-muted">
-                        {role}
+                        Welcome Back
                     </small>
 
                 </div>
 
             </div>
 
-        </nav>
+        </div>
 
     );
 

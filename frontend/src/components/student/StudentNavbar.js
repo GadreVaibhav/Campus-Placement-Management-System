@@ -1,56 +1,57 @@
-import { FaBell } from "react-icons/fa";
+import { FaUserGraduate } from "react-icons/fa";
 
 function StudentNavbar() {
-
-    const today = new Date().toLocaleDateString("en-IN", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-    });
 
     return (
 
         <div
-            className="student-navbar d-flex justify-content-between align-items-center"
+            className="d-flex justify-content-between align-items-center px-4 py-3 bg-white shadow-sm"
+            style={{
+                borderBottom: "1px solid #e5e7eb",
+                position: "fixed",
+                top: 0,
+                left: "260px",      // Sidebar width
+                right: 0,
+                zIndex: 1000,
+                height: "80px"
+            }}
         >
 
             <div>
 
-                <h4 className="mb-1">
-                    Welcome Back 👋
-                </h4>
+                <h3
+                    className="fw-bold mb-0"
+                    style={{
+                        color: "#0d6efd"
+                    }}
+                >
+                    Student Dashboard
+                </h3>
 
                 <small className="text-muted">
-                    {today}
+                    Campus Placement Management System
                 </small>
 
             </div>
 
-            <div className="d-flex align-items-center gap-4">
+            <div
+                className="d-flex align-items-center gap-3"
+            >
 
-                <button className="notification-btn">
+                <FaUserGraduate
+                    size={38}
+                    color="#0d6efd"
+                />
 
-                    <FaBell />
+                <div>
 
-                </button>
+                    <h6 className="mb-0 fw-bold">
+                        Student
+                    </h6>
 
-                <div className="student-user">
-
-                    <img
-                        src="https://ui-avatars.com/api/?name=Student&background=2a5298&color=fff"
-                        alt="Student"
-                    />
-
-                    <div>
-
-                        <strong>Student</strong>
-
-                        <div className="text-muted small">
-                            Placement Portal
-                        </div>
-
-                    </div>
+                    <small className="text-muted">
+                        Welcome Back
+                    </small>
 
                 </div>
 

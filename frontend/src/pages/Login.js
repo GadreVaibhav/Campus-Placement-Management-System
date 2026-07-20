@@ -47,13 +47,21 @@ localStorage.setItem("role", response.data.role);
 
       alert("Login Successful!");
 
-      if (response.data.role === "ADMIN") {
-        navigate("/admin/dashboard");
-      } else if (response.data.role === "STUDENT") {
-        navigate("/student");
-      } else {
-        navigate("/recruiter");
-      }
+     if (response.data.role === "ADMIN") {
+
+    navigate("/admin/dashboard");
+
+}
+else if (response.data.role === "STUDENT") {
+
+    navigate("/student/dashboard");
+
+}
+else if (response.data.role === "RECRUITER") {
+
+    navigate("/recruiter/dashboard");
+
+}
 
     } catch (error) {
 

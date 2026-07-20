@@ -7,7 +7,8 @@ import com.placement.portal.dto.RecruiterApplicationResponseDTO;
 
 public interface RecruiterApplicationService {
 
-    List<RecentApplicationDTO> getRecentApplications();
+    List<RecentApplicationDTO> getRecentApplications(
+        String recruiterEmail);
 
     List<RecruiterApplicationResponseDTO> getRecruiterApplications(
             String recruiterEmail);

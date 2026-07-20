@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.placement.portal.entity.Application;
 import com.placement.portal.entity.Interview;
+import com.placement.portal.entity.Recruiter;
 import com.placement.portal.entity.Student;
 
 @Repository
@@ -19,8 +20,14 @@ public interface InterviewRepository
 
     long countByApplicationStudent(Student student);
 
-     List<Interview> findByApplicationStudent(Student student);
+    List<Interview> findByApplicationStudent(Student student);
 
-     List<Interview> findTop5ByOrderByInterviewTimeAsc();
+    List<Interview> findTop5ByOrderByInterviewTimeAsc();
+
+    List<Interview> findByApplicationJobRecruiterOrderByInterviewTimeAsc(
+            Recruiter recruiter);
+
+    // NEW
+    long countByApplicationJobRecruiter(Recruiter recruiter);
 
 }

@@ -20,9 +20,16 @@ function RecruiterLayout() {
                 }}
             >
 
+                {/* Fixed Navbar */}
                 <RecruiterNavbar />
 
-                <div className="p-4">
+                {/* Scrollable Content */}
+                <div
+                    className="p-4"
+                    style={{
+                        marginTop: "90px"
+                    }}
+                >
 
                     <Outlet />
 
