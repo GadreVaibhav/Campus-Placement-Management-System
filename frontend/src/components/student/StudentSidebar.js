@@ -1,5 +1,4 @@
 import { NavLink, useNavigate } from "react-router-dom";
-
 import {
     FaTachometerAlt,
     FaUserGraduate,
@@ -92,7 +91,7 @@ function StudentSidebar() {
                     to="/student/offers"
                     className="student-link"
                 >
-                    <FaCalendarCheck />
+                    <FaBriefcase />
                     <span>My Offers</span>
                 </NavLink>
 

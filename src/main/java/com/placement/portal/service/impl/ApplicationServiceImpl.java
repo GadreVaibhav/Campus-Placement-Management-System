@@ -17,7 +17,12 @@ import com.placement.portal.repository.ApplicationRepository;
 import com.placement.portal.repository.JobRepository;
 import com.placement.portal.repository.StudentRepository;
 import com.placement.portal.service.ApplicationService;
+import com.placement.portal.entity.PlacementDrive;
+import com.placement.portal.entity.StudentApplication;
+import com.placement.portal.entity.ApplicationStatus;
 
+import com.placement.portal.repository.PlacementDriveRepository;
+import com.placement.portal.repository.StudentApplicationRepository;
 @Service
 public class ApplicationServiceImpl
         implements ApplicationService {
@@ -27,19 +32,27 @@ public class ApplicationServiceImpl
     private final StudentRepository studentRepository;
 
     private final JobRepository jobRepository;
+                private final PlacementDriveRepository placementDriveRepository;
 
+private final StudentApplicationRepository studentApplicationRepository;
     public ApplicationServiceImpl(
 
-            ApplicationRepository applicationRepository,
+        ApplicationRepository applicationRepository,
 
-            StudentRepository studentRepository,
+        StudentRepository studentRepository,
 
-            JobRepository jobRepository) {
+        JobRepository jobRepository,
 
-        this.applicationRepository = applicationRepository;
-        this.studentRepository = studentRepository;
-        this.jobRepository = jobRepository;
-    }
+        PlacementDriveRepository placementDriveRepository,
+
+        StudentApplicationRepository studentApplicationRepository) {
+
+    this.applicationRepository = applicationRepository;
+    this.studentRepository = studentRepository;
+    this.jobRepository = jobRepository;
+    this.placementDriveRepository = placementDriveRepository;
+    this.studentApplicationRepository = studentApplicationRepository;
+}
 
     // ==========================================
     // Apply Job
@@ -122,7 +135,54 @@ public class ApplicationServiceImpl
 
         Application saved =
                 applicationRepository.save(application);
+                
+// =====================================
+// ALSO SAVE INTO student_applications
+// =====================================
 
+// Find Placement Drive that belongs to the same company
+PlacementDrive drive =
+        placementDriveRepository
+                .findFirstByCompanyAndJobRole(
+                        job.getCompany(),
+                        job.getJobTitle())
+                .orElse(null);
+
+if (drive != null) {
+
+    boolean alreadyExists =
+            studentApplicationRepository
+
+                    .findAll()
+
+                    .stream()
+
+                    .anyMatch(app ->
+
+                            app.getStudent().getStudentId()
+
+                                    .equals(student.getStudentId())
+
+                                    &&
+
+                                    app.getPlacementDrive().getId()
+
+                                            .equals(drive.getId()));
+
+    if (!alreadyExists) {
+
+        StudentApplication studentApplication =
+                new StudentApplication();
+
+        studentApplication.setStudent(student);
+
+        studentApplication.setPlacementDrive(drive);
+
+        studentApplication.setStatus(ApplicationStatus.APPLIED);
+
+        studentApplicationRepository.save(studentApplication);
+    }
+}
         return ApplicationMapper.toResponseDTO(saved);
     }
 

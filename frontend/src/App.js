@@ -22,7 +22,7 @@ import Documents from "./pages/Documents";
 import JobDetails from "./pages/JobDetails";
 import MyApplications from "./pages/MyApplications";
 import StudentInterviews from "./pages/StudentInterviews";
-// import StudentOffers from "./pages/StudentOffers";
+import StudentOffers from "./pages/StudentOffers";
 
 
 
@@ -118,7 +118,10 @@ function App() {
 
             />
 
-            {/* <Route path="/student/offers" element={<StudentOffers />} /> */}
+                     <Route
+                        path="/student/offers"
+                        element={<StudentOffers />}
+                    />
 
         </Route>
 

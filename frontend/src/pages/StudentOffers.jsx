@@ -9,14 +9,10 @@ import {
 } from "react-bootstrap";
 
 import {
-
     getStudentOffers,
-
     acceptOffer,
-
     rejectOffer
-
-} from "../../services/offerService";
+} from "../services/offerService";
 
 function StudentOffers() {
 

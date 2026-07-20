@@ -55,7 +55,7 @@ function PlacementDriveTable({
 
                         <tr>
 
-                            <th>ID</th>
+                          
 
                             <th>Company</th>
 
@@ -95,7 +95,7 @@ function PlacementDriveTable({
 
                                 <tr key={drive.id}>
 
-                                    <td>{drive.driveId}</td>
+                                    
 
                                     <td>{drive.companyName}</td>
 

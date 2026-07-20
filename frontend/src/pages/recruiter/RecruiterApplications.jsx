@@ -18,22 +18,24 @@ function RecruiterApplications() {
 
     }, []);
 
-    const loadApplications = async () => {
+   const loadApplications = async () => {
 
-        try {
+    try {
 
-            const data =
-            await getRecruiterApplications();
+        const data = await getRecruiterApplications();
 
-            setApplications(data);
+        console.log("Recruiter Applications:");
+        console.log(data);
 
-        } catch (error) {
+        setApplications(data);
 
-            console.error(error);
+    } catch (error) {
 
-        }
+        console.error(error);
 
-    };
+    }
+
+};
 
     return (
 

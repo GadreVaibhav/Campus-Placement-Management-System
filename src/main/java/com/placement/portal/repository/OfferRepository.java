@@ -6,18 +6,20 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.placement.portal.entity.Application;
 import com.placement.portal.entity.Offer;
 import com.placement.portal.entity.Student;
-import com.placement.portal.entity.StudentApplication;
 
 @Repository
 public interface OfferRepository
         extends JpaRepository<Offer, Long> {
 
-    Optional<Offer> findByStudentApplication(
-            StudentApplication application);
+    // Find Offer by Application
+    Optional<Offer> findByApplication(
+            Application application);
 
-    List<Offer> findByStudentApplicationStudent(
+    // Find all offers of a student
+    List<Offer> findByApplicationStudent(
             Student student);
 
 }

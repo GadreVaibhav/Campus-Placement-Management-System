@@ -30,5 +30,5 @@ public interface ApplicationRepository
 
     List<Application> findTop5ByOrderByAppliedAtDesc();
     List<Application> findByJobRecruiter(Recruiter recruiter);
-
+List<Application> findByJobCompanyId(Long companyId);
 }

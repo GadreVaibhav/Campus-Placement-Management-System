@@ -2,32 +2,21 @@ package com.placement.portal.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import com.placement.portal.entity.StudentApplication;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "offers")
 public class Offer {
 
-    // ==========================================
-    // Primary Key
-    // ==========================================
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ==========================================
-    // Application
-    // ==========================================
-
- @ManyToOne(fetch = FetchType.LAZY)
-@JoinColumn(name = "student_application_id", nullable = false)
-private StudentApplication studentApplication;
-
-    // ==========================================
-    // Offer Details
-    // ==========================================
+    // CHANGED
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "application_id", nullable = false)
+    private Application application;
 
     @Column(nullable = false)
     private Double packageOffered;
@@ -38,16 +27,8 @@ private StudentApplication studentApplication;
     @Column(nullable = false)
     private LocalDate joiningDate;
 
-    @Column(nullable = false)
+    @Column(nullable =false)
     private String status;
-
-    // OFFERED
-    // ACCEPTED
-    // REJECTED
-
-    // ==========================================
-    // Created Time
-    // ==========================================
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -58,9 +39,7 @@ private StudentApplication studentApplication;
         createdAt = LocalDateTime.now();
 
         if (status == null) {
-
             status = "OFFERED";
-
         }
     }
 
@@ -76,12 +55,14 @@ private StudentApplication studentApplication;
         this.id = id;
     }
 
-    public StudentApplication getStudentApplication(){
-        return studentApplication;
+    // CHANGED
+    public Application getApplication() {
+        return application;
     }
 
-   public void setStudentApplication(StudentApplication studentApplication) {
-        this.studentApplication = studentApplication;
+    // CHANGED
+    public void setApplication(Application application) {
+        this.application = application;
     }
 
     public Double getPackageOffered() {

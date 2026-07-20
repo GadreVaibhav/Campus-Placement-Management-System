@@ -11,57 +11,60 @@ import com.placement.portal.entity.Application;
 import com.placement.portal.entity.Recruiter;
 import com.placement.portal.repository.ApplicationRepository;
 import com.placement.portal.repository.RecruiterRepository;
-import com.placement.portal.repository.StudentApplicationRepository;
 import com.placement.portal.service.RecruiterApplicationService;
 
 @Service
 public class RecruiterApplicationServiceImpl
         implements RecruiterApplicationService {
 
-                private final ApplicationRepository applicationRepository;
-                private final StudentApplicationRepository studentApplicationRepository;
-                private final RecruiterRepository recruiterRepository;
-   public RecruiterApplicationServiceImpl(
+    private final ApplicationRepository applicationRepository;
+    private final RecruiterRepository recruiterRepository;
 
-                        ApplicationRepository applicationRepository,
+    public RecruiterApplicationServiceImpl(
+            ApplicationRepository applicationRepository,
+            RecruiterRepository recruiterRepository) {
 
-                        StudentApplicationRepository studentApplicationRepository,
+        this.applicationRepository = applicationRepository;
+        this.recruiterRepository = recruiterRepository;
+    }
 
-                        RecruiterRepository recruiterRepository) {
+    // ==========================================
+    // Recent Applications
+    // ==========================================
 
-                this.applicationRepository = applicationRepository;
-
-                this.studentApplicationRepository = studentApplicationRepository;
-
-                this.recruiterRepository = recruiterRepository;
-                }
     @Override
     public List<RecentApplicationDTO> getRecentApplications() {
 
-                List<Application> applications =
-                        applicationRepository.findTop5ByOrderByAppliedAtDesc();
+        List<Application> applications =
+                applicationRepository.findTop5ByOrderByAppliedAtDesc();
 
-                return applications.stream()
+        return applications.stream()
 
-                        .map(application ->
+                .map(application ->
 
-                                new RecentApplicationDTO(
+                        new RecentApplicationDTO(
 
-                                        application.getStudent().getName(),
+                                application.getStudent().getName(),
 
-                                        application.getJob()
-                                                .getCompany()
-                                                .getCompanyName(),
+                                application.getJob()
+                                        .getCompany()
+                                        .getCompanyName(),
 
-                                        application.getJob().getJobTitle(),
+                                application.getJob()
+                                        .getJobTitle(),
 
-                                        application.getStatus()
+                                application.getStatus()
 
-                                ))
+                        ))
 
-                        .collect(Collectors.toList());
-        }
-    @Override
+                .collect(Collectors.toList());
+    }
+
+    // ==========================================
+    // Recruiter Applications
+    // ==========================================
+
+   @Override
 public List<RecruiterApplicationResponseDTO> getRecruiterApplications(
         String recruiterEmail) {
 
@@ -70,13 +73,9 @@ public List<RecruiterApplicationResponseDTO> getRecruiterApplications(
             .orElseThrow(() ->
                     new RuntimeException("Recruiter not found"));
 
-    return studentApplicationRepository.findAll()
+    return applicationRepository
+            .findByJobCompanyId(recruiter.getCompany().getId())
             .stream()
-            .filter(application ->
-                    application.getPlacementDrive()
-                            .getCompany()
-                            .getId()
-                            .equals(recruiter.getCompany().getId()))
             .map(application -> {
 
                 RecruiterApplicationResponseDTO dto =
@@ -94,38 +93,33 @@ public List<RecruiterApplicationResponseDTO> getRecruiterApplications(
                         application.getStudent().getEmail());
 
                 dto.setCgpa(
-                        Double.valueOf(
-                                application.getStudent().getCgpa()));
-
-                dto.setJobRole(
-                        application.getPlacementDrive().getJobRole());
+                        Double.valueOf(application.getStudent().getCgpa()));
 
                 dto.setCompanyName(
-                        application.getPlacementDrive()
-                                .getCompany()
-                                .getCompanyName());
+                        application.getJob().getCompany().getCompanyName());
+
+                dto.setJobRole(
+                        application.getJob().getJobTitle());
 
                 dto.setStatus(
-                        application.getStatus().name());
+                        application.getStatus());
 
                 dto.setApplicationDate(
-                        application.getApplicationDate());
+                        application.getAppliedAt());
 
                 dto.setPackageOffered(
-                application.getPlacementDrive().getPackageOffered());
+                        application.getJob().getPackageLpa());
 
                 dto.setMinimumCgpa(
-                application.getPlacementDrive().getMinimumCgpa());
+                        Double.valueOf(application.getJob().getEligibilityCgpa()));
 
-                dto.setDriveDate(
-                application.getPlacementDrive().getDriveDate());
+                dto.setDriveDate(null);
 
                 dto.setRegistrationDeadline(
-                application.getPlacementDrive().getRegistrationDeadline());
+                        application.getJob().getLastDate());
 
                 return dto;
-                        })
-                        .toList();
-                }
-    
+            })
+            .toList();
+}
 }

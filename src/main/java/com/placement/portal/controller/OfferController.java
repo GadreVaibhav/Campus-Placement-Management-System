@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.placement.portal.dto.OfferRequestDTO;
 import com.placement.portal.dto.OfferResponseDTO;
-import com.placement.portal.entity.Application;
-import com.placement.portal.entity.Recruiter;
 import com.placement.portal.service.OfferService;
 
 import jakarta.validation.Valid;
@@ -28,16 +26,15 @@ public class OfferController {
     // ==========================================
     // Recruiter
     // ==========================================
+
     @PostMapping
     public ResponseEntity<OfferResponseDTO> createOffer(
-        
 
             @Valid
             @RequestBody OfferRequestDTO requestDTO,
 
             Authentication authentication) {
 
-                
         return ResponseEntity.ok(
 
                 offerService.createOffer(
@@ -48,8 +45,9 @@ public class OfferController {
     }
 
     @GetMapping("/recruiter")
-    public ResponseEntity<List<OfferResponseDTO>>
-    getRecruiterOffers(Authentication authentication) {
+    public ResponseEntity<List<OfferResponseDTO>> getRecruiterOffers(
+
+            Authentication authentication) {
 
         return ResponseEntity.ok(
 
@@ -59,8 +57,7 @@ public class OfferController {
     }
 
     @PutMapping("/{offerId}")
-    public ResponseEntity<OfferResponseDTO>
-    updateOffer(
+    public ResponseEntity<OfferResponseDTO> updateOffer(
 
             @PathVariable Long offerId,
 
@@ -77,8 +74,7 @@ public class OfferController {
     }
 
     @DeleteMapping("/{offerId}")
-    public ResponseEntity<String>
-    deleteOffer(
+    public ResponseEntity<String> deleteOffer(
 
             @PathVariable Long offerId) {
 
@@ -92,8 +88,9 @@ public class OfferController {
     // ==========================================
 
     @GetMapping("/student")
-    public ResponseEntity<List<OfferResponseDTO>>
-    getStudentOffers(Authentication authentication) {
+    public ResponseEntity<List<OfferResponseDTO>> getStudentOffers(
+
+            Authentication authentication) {
 
         return ResponseEntity.ok(
 
@@ -103,8 +100,7 @@ public class OfferController {
     }
 
     @PutMapping("/{offerId}/accept")
-    public ResponseEntity<OfferResponseDTO>
-    acceptOffer(
+    public ResponseEntity<OfferResponseDTO> acceptOffer(
 
             @PathVariable Long offerId) {
 
@@ -114,8 +110,7 @@ public class OfferController {
     }
 
     @PutMapping("/{offerId}/reject")
-    public ResponseEntity<OfferResponseDTO>
-    rejectOffer(
+    public ResponseEntity<OfferResponseDTO> rejectOffer(
 
             @PathVariable Long offerId) {
 

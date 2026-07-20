@@ -3,12 +3,14 @@ package com.placement.portal.service.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import com.placement.portal.entity.StudentApplication;
+
 import com.placement.portal.dto.OfferRequestDTO;
 import com.placement.portal.dto.OfferResponseDTO;
+import com.placement.portal.entity.Application;
 import com.placement.portal.entity.Offer;
 import com.placement.portal.entity.Recruiter;
 import com.placement.portal.entity.Student;
+import com.placement.portal.entity.StudentApplication;
 import com.placement.portal.repository.ApplicationRepository;
 import com.placement.portal.repository.OfferRepository;
 import com.placement.portal.repository.RecruiterRepository;
@@ -20,502 +22,211 @@ import com.placement.portal.service.OfferService;
 public class OfferServiceImpl implements OfferService {
 
     private final OfferRepository offerRepository;
+   private final ApplicationRepository applicationRepository;
+    private final RecruiterRepository recruiterRepository;
+    private final StudentRepository studentRepository;
 
-private final StudentApplicationRepository studentApplicationRepository;
+    public OfferServiceImpl(
+            OfferRepository offerRepository,
+            ApplicationRepository applicationRepository,
+            RecruiterRepository recruiterRepository,
+            StudentRepository studentRepository) {
 
-private final RecruiterRepository recruiterRepository;
-
-private final StudentRepository studentRepository;
-
-public OfferServiceImpl(
-
-        OfferRepository offerRepository,
-
-        StudentApplicationRepository studentApplicationRepository,
-
-        RecruiterRepository recruiterRepository,
-
-        StudentRepository studentRepository) {
-
-    this.offerRepository = offerRepository;
-
-    this.studentApplicationRepository = studentApplicationRepository;
-
-    this.recruiterRepository = recruiterRepository;
-
-    this.studentRepository = studentRepository;
-}
-@Override
-
-public OfferResponseDTO createOffer(
-
-        OfferRequestDTO requestDTO,
-
-        String recruiterEmail) {
-            
-            System.out.println("Logged In Email = " + recruiterEmail);
-    // ==========================================
-    // Recruiter
-    // ==========================================
-
-    Recruiter recruiter = recruiterRepository
-
-            .findByEmail(recruiterEmail)
-
-            .orElseThrow(() ->
-
-                    new RuntimeException("Recruiter not found"));
-System.out.println("Recruiter Company = " + recruiter.getCompany().getId());
-    // ==========================================
-    // Application
-    // ==========================================
-System.out.println("Application ID Received = " + requestDTO.getApplicationId());
-   StudentApplication application = studentApplicationRepository
-
-        .findById(requestDTO.getApplicationId())
-
-        .orElseThrow(() ->
-
-                new RuntimeException("Application not found"));
-
-System.out.println("Application Company = "
-        + application.getPlacementDrive()
-                     .getCompany()
-                     .getId());
-    // ==========================================
-    // Security Check
-    // Recruiter can issue offer only for own company
-    // ==========================================
-
-   if (!application.getPlacementDrive()
-
-        .getCompany()
-
-        .getId()
-
-        .equals(recruiter.getCompany().getId())) {
-
-    throw new RuntimeException("Unauthorized");
-}
-
-    // ==========================================
-    // Prevent Duplicate Offer
-    // ==========================================
-
-    if (offerRepository
-
-        .findByStudentApplication(application)
-
-        .isPresent()) {
-
-        throw new RuntimeException(
-
-                "Offer already exists");
-
+        this.offerRepository = offerRepository;
+        this.applicationRepository = applicationRepository;
+        this.recruiterRepository = recruiterRepository;
+        this.studentRepository = studentRepository;
     }
 
-    // ==========================================
-    // Save Offer
-    // ==========================================
+    // =====================================================
+    // CREATE OFFER
+    // =====================================================
+
+    @Override
+    public OfferResponseDTO createOffer(
+            OfferRequestDTO requestDTO,
+            String recruiterEmail) {
+
+        Recruiter recruiter = recruiterRepository
+                .findByEmail(recruiterEmail)
+                .orElseThrow(() -> new RuntimeException("Recruiter not found"));
+
+       Application application =
+    applicationRepository
+        .findById(requestDTO.getApplicationId())
+        .orElseThrow(() ->
+            new RuntimeException("Application not found"));
+
+       if (!application.getJob()
+        .getCompany()
+        .getId()
+        .equals(recruiter.getCompany().getId())){
+
+            throw new RuntimeException("Unauthorized");
+        }
+
+        if (offerRepository.findByApplication(application).isPresent()) {
+            throw new RuntimeException("Offer already exists");
+        }
+
+        Offer offer = new Offer();
 
-    Offer offer = new Offer();
+        offer.setApplication(application);
+        offer.setPackageOffered(requestDTO.getPackageOffered());
+        offer.setLocation(requestDTO.getLocation());
+        offer.setJoiningDate(requestDTO.getJoiningDate());
+        offer.setStatus("OFFERED");
 
-    offer.setStudentApplication(application);
+        Offer saved = offerRepository.save(offer);
 
-    offer.setPackageOffered(
+        return mapToDTO(saved);
+    }
 
-            requestDTO.getPackageOffered());
+    // =====================================================
+    // RECRUITER OFFERS
+    // =====================================================
 
-    offer.setLocation(
+    @Override
+    public List<OfferResponseDTO> getRecruiterOffers(
+            String recruiterEmail) {
 
-            requestDTO.getLocation());
+        Recruiter recruiter = recruiterRepository
+                .findByEmail(recruiterEmail)
+                .orElseThrow(() -> new RuntimeException("Recruiter not found"));
 
-    offer.setJoiningDate(
+        return offerRepository.findAll()
+                .stream()
+                .filter(offer -> offer.getApplication()
+        .getJob()
+        .getCompany()
+                        .getId()
+                        .equals(recruiter.getCompany().getId()))
+                .map(this::mapToDTO)
+                .toList();
+    }
 
-            requestDTO.getJoiningDate());
+    // =====================================================
+    // UPDATE OFFER
+    // =====================================================
 
-    offer.setStatus("OFFERED");
+    @Override
+    public OfferResponseDTO updateOffer(
+            Long offerId,
+            OfferRequestDTO requestDTO) {
 
-    Offer savedOffer =
+        Offer offer = offerRepository.findById(offerId)
+                .orElseThrow(() -> new RuntimeException("Offer not found"));
 
-            offerRepository.save(offer);
+        offer.setPackageOffered(requestDTO.getPackageOffered());
+        offer.setLocation(requestDTO.getLocation());
+        offer.setJoiningDate(requestDTO.getJoiningDate());
 
-    // ==========================================
-    // Response DTO
-    // ==========================================
+        return mapToDTO(offerRepository.save(offer));
+    }
 
-    OfferResponseDTO dto =
+    // =====================================================
+    // DELETE OFFER
+    // =====================================================
 
-            new OfferResponseDTO();
+    @Override
+    public void deleteOffer(Long offerId) {
 
-    dto.setOfferId(savedOffer.getId());
-dto.setApplicationId(application.getId());
+        Offer offer = offerRepository.findById(offerId)
+                .orElseThrow(() -> new RuntimeException("Offer not found"));
 
-dto.setStudentName(
+        offerRepository.delete(offer);
+    }
 
-        application.getStudent().getName());
+    // =====================================================
+    // STUDENT OFFERS
+    // =====================================================
 
-dto.setCompanyName(
+    @Override
+    public List<OfferResponseDTO> getStudentOffers(
+            String studentEmail) {
 
-        application.getPlacementDrive()
+        Student student = studentRepository.findByUserEmail(studentEmail)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
 
-                .getCompany()
+        return offerRepository.findByApplicationStudent(student)
+                .stream()
+                .map(this::mapToDTO)
+                .toList();
+    }
 
-                .getCompanyName());
+    // =====================================================
+    // ACCEPT OFFER
+    // =====================================================
 
-dto.setJobTitle(
+    @Override
+    public OfferResponseDTO acceptOffer(Long offerId) {
 
-        application.getPlacementDrive()
+        Offer offer = offerRepository.findById(offerId)
+                .orElseThrow(() -> new RuntimeException("Offer not found"));
 
-                .getJobRole());
+        offer.setStatus("ACCEPTED");
 
-    dto.setPackageOffered(
+        return mapToDTO(offerRepository.save(offer));
+    }
 
-            savedOffer.getPackageOffered());
+    // =====================================================
+    // REJECT OFFER
+    // =====================================================
 
-    dto.setLocation(
+    @Override
+    public OfferResponseDTO rejectOffer(Long offerId) {
 
-            savedOffer.getLocation());
+        Offer offer = offerRepository.findById(offerId)
+                .orElseThrow(() -> new RuntimeException("Offer not found"));
 
-    dto.setJoiningDate(
+        offer.setStatus("REJECTED");
 
-            savedOffer.getJoiningDate());
+        return mapToDTO(offerRepository.save(offer));
+    }
 
-    dto.setStatus(
+    // =====================================================
+    // DTO MAPPER
+    // =====================================================
 
-            savedOffer.getStatus());
+    private OfferResponseDTO mapToDTO(Offer offer) {
 
-    dto.setCreatedAt(
+        OfferResponseDTO dto = new OfferResponseDTO();
 
-            savedOffer.getCreatedAt());
+        dto.setOfferId(offer.getId());
 
-    return dto;
+        dto.setApplicationId(
+        offer.getApplication().getId());
 
-}
-@Override
-public List<OfferResponseDTO> getRecruiterOffers(
-        String recruiterEmail) {
+       dto.setStudentName(
+        offer.getApplication()
+                .getStudent()
+                .getName());
 
-    Recruiter recruiter = recruiterRepository
 
-            .findByEmail(recruiterEmail)
+        offer.getApplication()
+        .getStudent();
 
-            .orElseThrow(() ->
-                    new RuntimeException("Recruiter not found"));
 
-    return offerRepository.findAll()
+       dto.setJobTitle(
+        offer.getApplication()
+                .getJob()
+                .getJobTitle());
 
-            .stream()
+        dto.setPackageOffered(
+                offer.getPackageOffered());
 
-            .filter(offer ->
+        dto.setLocation(
+                offer.getLocation());
 
-                    offer.getStudentApplication()
+        dto.setJoiningDate(
+                offer.getJoiningDate());
 
-                            .getPlacementDrive()
+        dto.setStatus(
+                offer.getStatus());
 
-                            .getCompany()
+        dto.setCreatedAt(
+                offer.getCreatedAt());
 
-                            .getId()
-
-                            .equals(recruiter.getCompany().getId()))
-
-            .map(offer -> {
-
-                OfferResponseDTO dto =
-                        new OfferResponseDTO();
-
-                dto.setOfferId(offer.getId());
-
-                dto.setApplicationId(
-                        offer.getStudentApplication().getId());
-
-                dto.setStudentName(
-                        offer.getStudentApplication()
-                                .getStudent()
-                                .getName());
-
-                dto.setCompanyName(
-                        offer.getStudentApplication()
-                                .getPlacementDrive()
-                                .getCompany()
-                                .getCompanyName());
-
-                dto.setJobTitle(
-                        offer.getStudentApplication()
-                                .getPlacementDrive()
-                                .getJobRole());
-
-                dto.setPackageOffered(
-                        offer.getPackageOffered());
-
-                dto.setLocation(
-                        offer.getLocation());
-
-                dto.setJoiningDate(
-                        offer.getJoiningDate());
-
-                dto.setStatus(
-                        offer.getStatus());
-
-                dto.setCreatedAt(
-                        offer.getCreatedAt());
-
-                return dto;
-
-            })
-
-            .toList();
-}
-@Override
-public OfferResponseDTO updateOffer(
-
-        Long offerId,
-
-        OfferRequestDTO requestDTO) {
-
-    Offer offer = offerRepository
-
-            .findById(offerId)
-
-            .orElseThrow(() ->
-
-                    new RuntimeException("Offer not found"));
-
-    offer.setPackageOffered(
-            requestDTO.getPackageOffered());
-
-    offer.setLocation(
-            requestDTO.getLocation());
-
-    offer.setJoiningDate(
-            requestDTO.getJoiningDate());
-
-    Offer updatedOffer =
-            offerRepository.save(offer);
-
-    OfferResponseDTO dto =
-            new OfferResponseDTO();
-
-    dto.setOfferId(updatedOffer.getId());
-
-    dto.setApplicationId(
-            updatedOffer.getStudentApplication().getId());
-
-    dto.setStudentName(
-            updatedOffer.getStudentApplication()
-                    .getStudent()
-                    .getName());
-
-    dto.setCompanyName(
-            updatedOffer.getStudentApplication()
-                    .getPlacementDrive()
-                    .getCompany()
-                    .getCompanyName());
-
-    dto.setJobTitle(
-            updatedOffer.getStudentApplication()
-                    .getPlacementDrive()
-                    .getJobRole());
-
-    dto.setPackageOffered(
-            updatedOffer.getPackageOffered());
-
-    dto.setLocation(
-            updatedOffer.getLocation());
-
-    dto.setJoiningDate(
-            updatedOffer.getJoiningDate());
-
-    dto.setStatus(
-            updatedOffer.getStatus());
-
-    dto.setCreatedAt(
-            updatedOffer.getCreatedAt());
-
-    return dto;
-}
-@Override
-public void deleteOffer(Long offerId) {
-
-    Offer offer = offerRepository
-
-            .findById(offerId)
-
-            .orElseThrow(() ->
-
-                    new RuntimeException("Offer not found"));
-
-    offerRepository.delete(offer);
-}
-@Override
-public List<OfferResponseDTO> getStudentOffers(
-        String studentEmail) {
-
-    Student student = studentRepository
-
-            .findByUserEmail(studentEmail)
-
-            .orElseThrow(() ->
-
-                    new RuntimeException("Student not found"));
-
-    return offerRepository
-
-            .findByStudentApplicationStudent(student)
-
-            .stream()
-
-            .map(offer -> {
-
-                OfferResponseDTO dto =
-                        new OfferResponseDTO();
-
-                dto.setOfferId(offer.getId());
-
-                dto.setApplicationId(
-                        offer.getStudentApplication().getId());
-
-                dto.setStudentName(
-                        student.getName());
-
-                dto.setCompanyName(
-                        offer.getStudentApplication()
-                                .getPlacementDrive()
-                                .getCompany()
-                                .getCompanyName());
-
-                dto.setJobTitle(
-                        offer.getStudentApplication()
-                                .getPlacementDrive()
-                                .getJobRole());
-
-                dto.setPackageOffered(
-                        offer.getPackageOffered());
-
-                dto.setLocation(
-                        offer.getLocation());
-
-                dto.setJoiningDate(
-                        offer.getJoiningDate());
-
-                dto.setStatus(
-                        offer.getStatus());
-
-                dto.setCreatedAt(
-                        offer.getCreatedAt());
-
-                return dto;
-
-            })
-
-            .toList();
-}
-@Override
-public OfferResponseDTO acceptOffer(Long offerId) {
-
-    Offer offer = offerRepository
-
-            .findById(offerId)
-
-            .orElseThrow(() ->
-                    new RuntimeException("Offer not found"));
-
-    offer.setStatus("ACCEPTED");
-
-    Offer updatedOffer = offerRepository.save(offer);
-
-    OfferResponseDTO dto = new OfferResponseDTO();
-
-    dto.setOfferId(updatedOffer.getId());
-
-    dto.setApplicationId(
-            updatedOffer.getStudentApplication().getId());
-
-    dto.setStudentName(
-            updatedOffer.getStudentApplication()
-                    .getStudent()
-                    .getName());
-
-    dto.setCompanyName(
-            updatedOffer.getStudentApplication()
-                    .getPlacementDrive()
-                    .getCompany()
-                    .getCompanyName());
-
-    dto.setJobTitle(
-            updatedOffer.getStudentApplication()
-                    .getPlacementDrive()
-                    .getJobRole());
-
-    dto.setPackageOffered(
-            updatedOffer.getPackageOffered());
-
-    dto.setLocation(
-            updatedOffer.getLocation());
-
-    dto.setJoiningDate(
-            updatedOffer.getJoiningDate());
-
-    dto.setStatus(
-            updatedOffer.getStatus());
-
-    dto.setCreatedAt(
-            updatedOffer.getCreatedAt());
-
-    return dto;
-}
-@Override
-public OfferResponseDTO rejectOffer(Long offerId) {
-
-    Offer offer = offerRepository
-
-            .findById(offerId)
-
-            .orElseThrow(() ->
-                    new RuntimeException("Offer not found"));
-
-    offer.setStatus("REJECTED");
-
-    Offer updatedOffer = offerRepository.save(offer);
-
-    OfferResponseDTO dto = new OfferResponseDTO();
-
-    dto.setOfferId(updatedOffer.getId());
-
-    dto.setApplicationId(
-            updatedOffer.getStudentApplication().getId());
-
-    dto.setStudentName(
-            updatedOffer.getStudentApplication()
-                    .getStudent()
-                    .getName());
-
-    dto.setCompanyName(
-            updatedOffer.getStudentApplication()
-                    .getPlacementDrive()
-                    .getCompany()
-                    .getCompanyName());
-
-    dto.setJobTitle(
-            updatedOffer.getStudentApplication()
-                    .getPlacementDrive()
-                    .getJobRole());
-
-    dto.setPackageOffered(
-            updatedOffer.getPackageOffered());
-
-    dto.setLocation(
-            updatedOffer.getLocation());
-
-    dto.setJoiningDate(
-            updatedOffer.getJoiningDate());
-
-    dto.setStatus(
-            updatedOffer.getStatus());
-
-    dto.setCreatedAt(
-            updatedOffer.getCreatedAt());
-
-    return dto;
-}
+        return dto;
+    }
 }

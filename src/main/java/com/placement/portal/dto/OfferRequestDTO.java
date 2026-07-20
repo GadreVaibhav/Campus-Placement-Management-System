@@ -7,8 +7,8 @@ import jakarta.validation.constraints.NotNull;
 
 public class OfferRequestDTO {
 
-    @NotNull
-    private Long applicationId;
+   @NotNull
+private Long applicationId;
 
     @NotNull
     private Double packageOffered;
@@ -19,17 +19,13 @@ public class OfferRequestDTO {
     @NotNull
     private LocalDate joiningDate;
 
-    // ===========================
-    // Getters & Setters
-    // ===========================
-
     public Long getApplicationId() {
-        return applicationId;
-    }
+    return applicationId;
+}
 
-    public void setApplicationId(Long applicationId) {
-        this.applicationId = applicationId;
-    }
+public void setApplicationId(Long applicationId) {
+    this.applicationId = applicationId;
+}
 
     public Double getPackageOffered() {
         return packageOffered;
@@ -54,5 +50,4 @@ public class OfferRequestDTO {
     public void setJoiningDate(LocalDate joiningDate) {
         this.joiningDate = joiningDate;
     }
-
 }

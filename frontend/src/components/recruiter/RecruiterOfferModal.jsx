@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
-
-import {
-    Modal,
-    Button,
-    Form
-} from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
 
 import {
     createOffer,
     updateOffer
 } from "../../services/offerService";
 
-import { getRecruiterApplications }
-from "../../services/recruiterApplicationService";
+import {
+    getRecruiterApplications
+} from "../../services/recruiterApplicationService";
 
 function RecruiterOfferModal({
 
@@ -28,17 +24,17 @@ function RecruiterOfferModal({
 
     const [applications, setApplications] = useState([]);
 
-    const [formData, setFormData] = useState({
+   const [formData, setFormData] = useState({
 
-        applicationId: "",
+    applicationId: "",
 
-        packageOffered: "",
+    packageOffered: "",
 
-        location: "",
+    location: "",
 
-        joiningDate: ""
+    joiningDate: ""
 
-    });
+});
 
     useEffect(() => {
 
@@ -92,7 +88,7 @@ function RecruiterOfferModal({
 
             setFormData({
 
-                applicationId: "",
+               applicationId: "",
 
                 packageOffered: "",
 
@@ -158,7 +154,7 @@ function RecruiterOfferModal({
 
             console.error(error);
 
-            alert("Operation failed.");
+            alert("Failed to create offer.");
 
         }
 
@@ -182,13 +178,11 @@ function RecruiterOfferModal({
 
                     {
 
-                        offer ?
+                        offer
 
-                            "Update Offer"
+                            ? "Update Offer"
 
-                            :
-
-                            "Create Offer"
+                            : "Create Offer"
 
                     }
 
@@ -208,11 +202,11 @@ function RecruiterOfferModal({
 
                         </Form.Label>
 
-                        <Form.Select
+                       <Form.Select
 
-                            name="applicationId"
+    name="applicationId"
 
-                            value={formData.applicationId}
+    value={formData.applicationId}
 
                             onChange={handleChange}
 
@@ -230,14 +224,21 @@ function RecruiterOfferModal({
 
                             {
 
-                               applications.map(app => (
-    <option
-    key={app.applicationId}
-    value={app.applicationId}
->
-    #{app.applicationId} - {app.studentName} - {app.jobRole} - {app.companyName}
-</option>
-))
+                                applications.map(app => (
+
+                                    <option
+
+                                        key={app.applicationId}
+
+                                        value={app.applicationId}
+
+                                    >
+
+                                        #{app.applicationId} - {app.studentName} - {app.jobRole} - {app.companyName}
+
+                                    </option>
+
+                                ))
 
                             }
 
@@ -337,13 +338,11 @@ function RecruiterOfferModal({
 
                         {
 
-                            offer ?
+                            offer
 
-                                "Update"
+                                ? "Update"
 
-                                :
-
-                                "Create"
+                                : "Create"
 
                         }
 
