@@ -11695,3 +11695,8 @@ java.lang.RuntimeException: Email already exists
 2026-07-20T23:21:11.506+05:30  INFO 60984 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
 2026-07-20T23:21:11.507+05:30  INFO 60984 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
 2026-07-20T23:21:11.507+05:30  INFO 60984 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-20T23:51:31.223+05:30  INFO 60984 --- [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-07-20T23:51:31.233+05:30  INFO 60984 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-07-20T23:51:31.249+05:30  INFO 60984 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-07-20T23:51:31.261+05:30  INFO 60984 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-07-20T23:51:31.266+05:30  INFO 60984 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
