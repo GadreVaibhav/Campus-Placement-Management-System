@@ -6,6 +6,7 @@ import com.placement.portal.dto.StudentDashboardResponseDTO;
 import com.placement.portal.entity.ApplicationStatus;
 import com.placement.portal.entity.Student;
 import com.placement.portal.exception.StudentNotFoundException;
+import com.placement.portal.repository.ApplicationRepository;
 import com.placement.portal.repository.InterviewRepository;
 import com.placement.portal.repository.PlacementDriveRepository;
 import com.placement.portal.repository.StudentApplicationRepository;
@@ -18,7 +19,7 @@ public class StudentDashboardServiceImpl
 
     private final StudentRepository studentRepository;
 
-    private final StudentApplicationRepository applicationRepository;
+   private final ApplicationRepository applicationRepository;
 
     private final PlacementDriveRepository placementDriveRepository;
 
@@ -28,7 +29,7 @@ public class StudentDashboardServiceImpl
 
             StudentRepository studentRepository,
 
-            StudentApplicationRepository applicationRepository,
+            ApplicationRepository applicationRepository,
 
             PlacementDriveRepository placementDriveRepository,
 
@@ -55,17 +56,13 @@ public class StudentDashboardServiceImpl
         StudentDashboardResponseDTO dto =
                 new StudentDashboardResponseDTO();
 
-        dto.setAppliedDrives(
+      dto.setAppliedDrives(
+        applicationRepository.countByStudent(student));
 
-                applicationRepository.countByStudent(student));
-
-        dto.setSelectedDrives(
-
-                applicationRepository.countByStudentAndStatus(
-
-                        student,
-
-                        ApplicationStatus.SELECTED));
+dto.setSelectedDrives(
+        applicationRepository.countByStudentAndStatus(
+                student,
+                "SELECTED"));
 
         dto.setUpcomingDrives(
 

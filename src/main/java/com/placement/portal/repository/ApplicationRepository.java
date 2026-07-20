@@ -35,5 +35,9 @@ public interface ApplicationRepository
     // Dashboard
     // ===========================
 
+    long countByStudent(Student student);
+
+    long countByStudentAndStatus(Student student, String status);
+
     long countByStatus(String status);
 }
