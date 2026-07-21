@@ -111,3 +111,167 @@
 2026-07-21T15:24:00.363+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
 2026-07-21T15:24:00.363+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
 2026-07-21T15:24:00.363+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:10.476+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/students
+2026-07-21T15:24:10.477+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:10.479+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:10.487+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:10.488+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:10.488+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:10.488+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:10.499+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.service.impl.StudentServiceImpl    : Fetching students | page=0 size=5 sortBy=studentId direction=asc
+2026-07-21T15:24:10.505+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.service.impl.StudentServiceImpl    : Total students fetched: 3
+2026-07-21T15:24:10.524+05:30  WARN 26904 --- [http-nio-8082-exec-7] ration$PageModule$WarningLoggingModifier : Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2026-07-21T15:24:10.536+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/students
+2026-07-21T15:24:10.536+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:10.538+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:10.538+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:10.538+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:10.538+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:10.538+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:10.548+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.service.impl.StudentServiceImpl    : Fetching students | page=0 size=5 sortBy=studentId direction=asc
+2026-07-21T15:24:10.562+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.service.impl.StudentServiceImpl    : Total students fetched: 3
+2026-07-21T15:24:11.059+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/companies
+2026-07-21T15:24:11.060+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:11.061+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:11.069+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:11.069+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:11.069+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:11.069+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:11.069+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.service.impl.CompanyServiceImpl    : Fetching companies | page=0 size=5 sortBy=companyName direction=asc
+2026-07-21T15:24:11.075+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.service.impl.CompanyServiceImpl    : Total companies found: 2
+2026-07-21T15:24:11.088+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/companies
+2026-07-21T15:24:11.088+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:11.090+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:11.090+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:11.090+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:11.090+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:11.090+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:11.090+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.service.impl.CompanyServiceImpl    : Fetching companies | page=0 size=5 sortBy=companyName direction=asc
+2026-07-21T15:24:11.104+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.service.impl.CompanyServiceImpl    : Total companies found: 2
+2026-07-21T15:24:12.385+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/companies
+2026-07-21T15:24:12.386+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:12.388+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:12.389+05:30  INFO 26904 --- [http-nio-8082-exec-5] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/recruiters
+2026-07-21T15:24:12.389+05:30  INFO 26904 --- [http-nio-8082-exec-5] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:12.391+05:30  INFO 26904 --- [http-nio-8082-exec-5] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:12.395+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:12.395+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:12.395+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:12.395+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:12.395+05:30  INFO 26904 --- [http-nio-8082-exec-5] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:12.395+05:30  INFO 26904 --- [http-nio-8082-exec-5] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:12.395+05:30  INFO 26904 --- [http-nio-8082-exec-5] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:12.395+05:30  INFO 26904 --- [http-nio-8082-exec-5] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:12.395+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.service.impl.CompanyServiceImpl    : Fetching companies | page=0 size=5 sortBy=companyName direction=asc
+2026-07-21T15:24:12.409+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.service.impl.CompanyServiceImpl    : Total companies found: 2
+2026-07-21T15:24:12.409+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/companies
+2026-07-21T15:24:12.409+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:12.415+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:12.415+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/recruiters
+2026-07-21T15:24:12.415+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:12.415+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:12.422+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:12.423+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:12.423+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:12.423+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:12.423+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.service.impl.CompanyServiceImpl    : Fetching companies | page=0 size=5 sortBy=companyName direction=asc
+2026-07-21T15:24:12.423+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:12.423+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:12.423+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:12.423+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:12.431+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.service.impl.CompanyServiceImpl    : Total companies found: 2
+2026-07-21T15:24:12.894+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/companies
+2026-07-21T15:24:12.894+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/recruiters
+2026-07-21T15:24:12.894+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:12.894+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:12.896+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/jobs
+2026-07-21T15:24:12.896+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:12.896+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:12.896+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:12.898+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:12.904+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:12.904+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:12.904+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:12.904+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:12.904+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:12.904+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:12.904+05:30  INFO 26904 --- [http-nio-8082-exec-1] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:12.904+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:12.907+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:12.908+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:12.909+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:12.909+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:12.912+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.service.impl.CompanyServiceImpl    : Fetching companies | page=0 size=5 sortBy=companyName direction=asc
+2026-07-21T15:24:12.914+05:30  INFO 26904 --- [http-nio-8082-exec-8] c.p.p.service.impl.CompanyServiceImpl    : Total companies found: 2
+2026-07-21T15:24:12.914+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/companies
+2026-07-21T15:24:12.914+05:30  INFO 26904 --- [http-nio-8082-exec-6] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/recruiters
+2026-07-21T15:24:12.914+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:12.914+05:30  INFO 26904 --- [http-nio-8082-exec-6] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:12.914+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:12.914+05:30  INFO 26904 --- [http-nio-8082-exec-6] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:12.931+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:12.931+05:30  INFO 26904 --- [http-nio-8082-exec-6] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:12.931+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:12.931+05:30  INFO 26904 --- [http-nio-8082-exec-6] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:12.931+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:12.931+05:30  INFO 26904 --- [http-nio-8082-exec-6] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:12.931+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:12.931+05:30  INFO 26904 --- [http-nio-8082-exec-6] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:12.933+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.service.impl.CompanyServiceImpl    : Fetching companies | page=0 size=5 sortBy=companyName direction=asc
+2026-07-21T15:24:12.936+05:30  INFO 26904 --- [http-nio-8082-exec-5] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/jobs
+2026-07-21T15:24:12.936+05:30  INFO 26904 --- [http-nio-8082-exec-5] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:12.936+05:30  INFO 26904 --- [http-nio-8082-exec-5] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:12.936+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.service.impl.CompanyServiceImpl    : Total companies found: 2
+2026-07-21T15:24:12.946+05:30  INFO 26904 --- [http-nio-8082-exec-5] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:12.946+05:30  INFO 26904 --- [http-nio-8082-exec-5] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:12.946+05:30  INFO 26904 --- [http-nio-8082-exec-5] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:12.946+05:30  INFO 26904 --- [http-nio-8082-exec-5] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:14.013+05:30  INFO 26904 --- [http-nio-8082-exec-2] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/placement-drives
+2026-07-21T15:24:14.014+05:30  INFO 26904 --- [http-nio-8082-exec-2] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:14.016+05:30  INFO 26904 --- [http-nio-8082-exec-2] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:14.018+05:30  INFO 26904 --- [http-nio-8082-exec-2] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:14.018+05:30  INFO 26904 --- [http-nio-8082-exec-2] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:14.018+05:30  INFO 26904 --- [http-nio-8082-exec-2] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:14.018+05:30  INFO 26904 --- [http-nio-8082-exec-2] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:14.025+05:30  INFO 26904 --- [http-nio-8082-exec-2] c.p.p.s.impl.PlacementDriveServiceImpl   : Fetching placement drives | page=0 size=5 sortBy=id direction=asc
+2026-07-21T15:24:14.033+05:30  INFO 26904 --- [http-nio-8082-exec-2] c.p.p.s.impl.PlacementDriveServiceImpl   : Total placement drives found: 4
+2026-07-21T15:24:14.039+05:30  INFO 26904 --- [http-nio-8082-exec-9] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/placement-drives
+2026-07-21T15:24:14.039+05:30  INFO 26904 --- [http-nio-8082-exec-9] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:14.045+05:30  INFO 26904 --- [http-nio-8082-exec-9] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:14.046+05:30  INFO 26904 --- [http-nio-8082-exec-9] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:14.046+05:30  INFO 26904 --- [http-nio-8082-exec-9] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:14.046+05:30  INFO 26904 --- [http-nio-8082-exec-9] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:14.046+05:30  INFO 26904 --- [http-nio-8082-exec-9] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:14.053+05:30  INFO 26904 --- [http-nio-8082-exec-9] c.p.p.s.impl.PlacementDriveServiceImpl   : Fetching placement drives | page=0 size=5 sortBy=id direction=asc
+2026-07-21T15:24:14.068+05:30  INFO 26904 --- [http-nio-8082-exec-9] c.p.p.s.impl.PlacementDriveServiceImpl   : Total placement drives found: 4
+2026-07-21T15:24:14.430+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/applications
+2026-07-21T15:24:14.430+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:14.432+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:14.436+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:14.436+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:14.436+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:14.436+05:30  INFO 26904 --- [http-nio-8082-exec-10] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:14.470+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/applications
+2026-07-21T15:24:14.470+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:14.473+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:14.479+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:14.479+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:14.479+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:14.479+05:30  INFO 26904 --- [http-nio-8082-exec-4] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:14.923+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/interviews
+2026-07-21T15:24:14.923+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:14.925+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:14.933+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:14.933+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:14.933+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:14.933+05:30  INFO 26904 --- [http-nio-8082-exec-3] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
+2026-07-21T15:24:14.955+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Incoming Request : /api/interviews
+2026-07-21T15:24:14.955+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : JWT received.
+2026-07-21T15:24:14.955+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : User Email : admin1@gmail.com
+2026-07-21T15:24:14.963+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authorities: [ROLE_ADMIN]
+2026-07-21T15:24:14.963+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authentication: UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=admin1@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_ADMIN]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[ROLE_ADMIN]]
+2026-07-21T15:24:14.963+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authentication successful for admin1@gmail.com
+2026-07-21T15:24:14.963+05:30  INFO 26904 --- [http-nio-8082-exec-7] c.p.p.security.JwtAuthenticationFilter   : Authorities : [ROLE_ADMIN]
