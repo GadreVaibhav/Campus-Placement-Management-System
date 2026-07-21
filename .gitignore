@@ -31,3 +31,24 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+target/
+
+logs/
+
+uploads/
+
+.env
+
+.idea/
+
+.vscode/
+
+*.log
+
+*.class
+
+*.jar
+
+application-local.properties
