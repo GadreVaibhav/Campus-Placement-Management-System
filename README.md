@@ -148,7 +148,7 @@ Backend API
     Monitor placement statistics.
     View analytics and reports.
     
-##📈 Future Enhancements
+## 📈 Future Enhancements
   [ ] Email Notifications
   
   [ ] Resume Parser & AI-based Resume Screening
