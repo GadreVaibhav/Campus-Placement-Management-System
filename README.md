@@ -91,23 +91,6 @@ Backend API
 
 ---
 
-## 📁 Project Structure
-
-Campus-Placement-Management-System/
-├── Frontend/
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   └── ...
-│
-├── Backend/
-│   ├── src/main/java/
-│   ├── src/main/resources/
-│   ├── pom.xml
-│   └── ...
-│
-└── README.md
-
 📸 Modules
   Authentication Module
   
@@ -165,7 +148,7 @@ Campus-Placement-Management-System/
     Monitor placement statistics.
     View analytics and reports.
     
-📈 Future Enhancements
+##📈 Future Enhancements
   [ ] Email Notifications
   
   [ ] Resume Parser & AI-based Resume Screening
